@@ -7,29 +7,48 @@
         <title>La Buvette by Féfé (UI by TrAsKiN)</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
-            #pip{
+            .pip-bottom{
+                z-index: 1100;
+                bottom: 60px;
+                right: 15px;
+            }
+            .pip-top{
                 z-index: 10;
-                bottom: 10px;
-                right: 10px;
+                top: 15px;
+                right: 15px;
+            }
+            .col-chat{
+                width: 400px;
             }
         </style>
     </head>
     <body class="bg-dark text-white">
-        <div class="">
+        <div id="app">
             <div class="row no-gutters">
                 <div class="col position-relative">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io"></iframe>
+                    <div class="embed-responsive embed-responsive-16by9" id="main">
+                        <iframe class="embed-responsive-item" src=""></iframe>
                     </div>
-                    <div class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/58NBkzSwioc"></iframe>
+                    <div v-bind:class="[onTop ? 'pip-top' : 'pip-bottom']" class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
+                        <iframe class="embed-responsive-item" src=""></iframe>
                     </div>
                 </div>
-                <div class="col-2">
-                    <div class="h-100">
-                        <embed class="h-100" src="https://www.twitch.tv/embed/felxgg/chat?parent=traskin.github.io">
+                <div class="col-auto col-chat">
+                    <div class="h-100" id="chat">
+                        <iframe class="w-100 h-100" src="https://www.twitch.tv/embed/felxgg/chat?darkpopout&parent=traskin.github.io" frameborder="0"></iframe>
                     </div>
+                </div>
+            </div>
+            <div class="row no-gutters text-center m-1" id="tools">
+                <div class="col">
+                    <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur"><span class="material-icons">picture_in_picture{{ alt }}</span></button>
+                    <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs"><span class="material-icons">compare_arrows</span></button>
+                    <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs"><span class="material-icons">cached</span></button>
+                </div>
+                <div class="col-auto col-chat">
+                    <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat"><span class="material-icons">cached</span></button>
                 </div>
             </div>
         </div>
@@ -38,7 +57,46 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> -->
         <script>
-
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    buvette: 'https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io',
+                    owlFr: 'https://www.youtube.com/embed/58NBkzSwioc?autoplay=1',
+                    main: document.getElementById('main'),
+                    pip: document.getElementById('pip'),
+                    chat: document.getElementById('chat'),
+                    onTop: false,
+                    alt: ''
+                },
+                methods: {
+                    movePip: function () {
+                        this.onTop = !this.onTop;
+                        this.onTop ? this.alt = '_alt' : this.alt = '';
+                    },
+                    switchPlayer: function () {
+                        var mainPlayer = document.querySelector('#main iframe').src;
+                        var pipPlayer = document.querySelector('#pip iframe').src;
+                        if (mainPlayer == this.buvette) {
+                            document.querySelector('#main iframe').src = this.owlFr;
+                            document.querySelector('#pip iframe').src = this.buvette;
+                        } else {
+                            document.querySelector('#main iframe').src = this.buvette;
+                            document.querySelector('#pip iframe').src = this.owlFr;
+                        }
+                    },
+                    reloadPlayers: function () {
+                        document.querySelector('#main iframe').src = document.querySelector('#main iframe').src;
+                        document.querySelector('#pip iframe').src = document.querySelector('#pip iframe').src;
+                    },
+                    reloadChat: function () {
+                        document.querySelector('#chat iframe').src = document.querySelector('#chat iframe').src;
+                    }
+                },
+                created: function () {
+                    document.querySelector('#main iframe').src = this.buvette;
+                    document.querySelector('#pip iframe').src = this.owlFr;
+                }
+            });
         </script>
     </body>
 </html>
