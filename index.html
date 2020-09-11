@@ -7,10 +7,31 @@
         <title>La Buvette by Féfé (UI by TrAsKiN)</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            #pip{
+                z-index: 10;
+                bottom: 10px;
+                right: 10px;
+            }
+        </style>
     </head>
     <body class="bg-dark text-white">
         <div class="">
-            <iframe src="https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io" height="100%" width="100%" frameborder="0"></iframe>
+            <div class="row no-gutters">
+                <div class="col position-relative">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io"></iframe>
+                    </div>
+                    <div class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/58NBkzSwioc"></iframe>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="h-100">
+                        <embed class="h-100" src="https://www.twitch.tv/popout/felxgg/chat?popout=">
+                    </div>
+                </div>
+            </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
