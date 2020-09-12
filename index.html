@@ -10,20 +10,30 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
             .pip-bottom{
-                z-index: 1100;
                 bottom: 50px;
-                right: 15px;
             }
             .pip-top{
-                z-index: 10;
                 top: 15px;
+            }
+            .pip-right{
                 right: 15px;
+            }
+            .pip-left{
+                left: 15px;
             }
             .col-chat{
                 width: 360px;
             }
             .btn:focus{
                 box-shadow: none;
+            }
+            .mirror{
+                -moz-transform: scaleX(-1);
+                -o-transform: scaleX(-1);
+                -webkit-transform: scaleX(-1);
+                transform: scaleX(-1);
+                filter: FlipH;
+                -ms-filter: "FlipH";
             }
         </style>
     </head>
@@ -34,7 +44,7 @@
                     <div class="embed-responsive embed-responsive-16by9" id="main">
                         <iframe class="embed-responsive-item" src="https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io&parent=owl-buvette.test"></iframe>
                     </div>
-                    <div v-show="pipActive" v-bind:class="[onTop ? 'pip-top' : 'pip-bottom']" class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
+                    <div v-show="pipActive" v-bind:class="[onTop ? 'pip-top' : 'pip-bottom', mirror ? 'pip-left' : 'pip-right']" class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
                         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1"></iframe>
                     </div>
                 </div>
@@ -46,11 +56,14 @@
             </div>
             <div class="row no-gutters text-center m-y-1">
                 <div class="col">
-                    <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur">
+                    <button @click="mirrorPip" type="button" class="btn btn-link text-light" title="Place le petit lecteur à gauche ou à droite">
+                        <span class="material-icons">{{ mirror ? 'switch_left' : 'switch_right' }}</span>
+                    </button>
+                    <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur" id="move">
                         <span class="material-icons">picture_in_picture{{ onTop ? '_alt' : '' }}</span>
                     </button>
                     <button @click="togglePip" type="button" class="btn btn-link text-light" title="Active/désactive le petit lecteur">
-                        <span class="material-icons">{{ pipActive ? 'browser_not_supported' : 'crop_din' }}</span>
+                        <span class="material-icons">{{ pipActive ? 'browser_not_supported' : 'crop_3_2' }}</span>
                     </button>
                     <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs (et les rechargent)">
                         <span class="material-icons">compare_arrows</span>
@@ -73,11 +86,16 @@
             var app = new Vue({
                 el: '#app',
                 data: {
+                    mirror: false,
                     onTop: false,
                     pipActive: true,
                     alternative: false
                 },
                 methods: {
+                    mirrorPip: function () {
+                        this.mirror = !this.mirror;
+                        document.querySelector('#move').classList.toggle('mirror');
+                    },
                     movePip: function () {
                         this.onTop = !this.onTop;
                     },
