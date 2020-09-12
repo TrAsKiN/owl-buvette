@@ -22,6 +22,9 @@
             .col-chat{
                 width: 400px;
             }
+            .btn:focus{
+                box-shadow: none;
+            }
         </style>
     </head>
     <body class="bg-dark text-white">
@@ -29,59 +32,63 @@
             <div class="row no-gutters">
                 <div class="col position-relative">
                     <div class="embed-responsive embed-responsive-16by9" id="main">
-                        <iframe class="embed-responsive-item" src=""></iframe>
+                        <iframe class="embed-responsive-item" src="https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io&parent=owl-buvette.test"></iframe>
                     </div>
-                    <div v-bind:class="[onTop ? 'pip-top' : 'pip-bottom']" class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
-                        <iframe class="embed-responsive-item" src=""></iframe>
+                    <div v-show="pipActive" v-bind:class="[onTop ? 'pip-top' : 'pip-bottom']" class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1"></iframe>
                     </div>
                 </div>
                 <div class="col-auto col-chat">
                     <div class="h-100" id="chat">
-                        <iframe class="w-100 h-100" src="https://www.twitch.tv/embed/felxgg/chat?darkpopout&parent=traskin.github.io" frameborder="0"></iframe>
+                        <iframe class="w-100 h-100" src="https://www.twitch.tv/embed/felxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
-            <div class="row no-gutters text-center m-1" id="tools">
+            <div class="row no-gutters text-center m-1">
                 <div class="col">
-                    <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur"><span class="material-icons">picture_in_picture{{ alt }}</span></button>
-                    <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs"><span class="material-icons">compare_arrows</span></button>
-                    <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs"><span class="material-icons">cached</span></button>
+                    <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur">
+                        <span class="material-icons">picture_in_picture{{ onTop ? '_alt' : '' }}</span>
+                    </button>
+                    <button @click="togglePip" type="button" class="btn btn-link text-light" title="Active/désactive le petit lecteur">
+                        <span class="material-icons">{{ pipActive ? 'browser_not_supported' : 'crop_din' }}</span>
+                    </button>
+                    <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs">
+                        <span class="material-icons">compare_arrows</span>
+                    </button>
+                    <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs">
+                        <span class="material-icons">cached</span>
+                    </button>
                 </div>
                 <div class="col-auto col-chat">
                     <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat"><span class="material-icons">cached</span></button>
                 </div>
             </div>
+            <p class="text-muted text-center"><small>UI by <a href="https://twitter.com/notTrAsKiN" target="_blank" class="text-muted">TrAsKiN</a> &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank" class="text-muted">GitHub</a></small></p>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
         <script>
             var app = new Vue({
                 el: '#app',
                 data: {
-                    buvette: 'https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io',
-                    owlFr: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1',
-                    main: document.getElementById('main'),
-                    pip: document.getElementById('pip'),
-                    chat: document.getElementById('chat'),
                     onTop: false,
-                    alt: ''
+                    pipActive: true,
+                    alternative: false
                 },
                 methods: {
                     movePip: function () {
                         this.onTop = !this.onTop;
-                        this.onTop ? this.alt = '_alt' : this.alt = '';
+                    },
+                    togglePip: function () {
+                        this.pipActive = !this.pipActive;
                     },
                     switchPlayer: function () {
                         var mainPlayer = document.querySelector('#main iframe').src;
                         var pipPlayer = document.querySelector('#pip iframe').src;
-                        if (mainPlayer == this.buvette) {
-                            document.querySelector('#main iframe').src = this.owlFr;
-                            document.querySelector('#pip iframe').src = this.buvette;
-                        } else {
-                            document.querySelector('#main iframe').src = this.buvette;
-                            document.querySelector('#pip iframe').src = this.owlFr;
-                        }
+                        document.querySelector('#main iframe').src = pipPlayer;
+                        document.querySelector('#pip iframe').src = mainPlayer;
                     },
                     reloadPlayers: function () {
                         document.querySelector('#main iframe').src = document.querySelector('#main iframe').src;
@@ -90,10 +97,6 @@
                     reloadChat: function () {
                         document.querySelector('#chat iframe').src = document.querySelector('#chat iframe').src;
                     }
-                },
-                created: function () {
-                    document.querySelector('#main iframe').src = this.buvette;
-                    document.querySelector('#pip iframe').src = this.owlFr;
                 }
             });
         </script>
