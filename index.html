@@ -9,6 +9,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
+            .pip{
+                z-index: 1100;
+            }
             .pip-bottom{
                 bottom: 50px;
             }
@@ -27,7 +30,7 @@
             .btn:focus{
                 box-shadow: none;
             }
-            .mirror{
+            .flipX{
                 -moz-transform: scaleX(-1);
                 -o-transform: scaleX(-1);
                 -webkit-transform: scaleX(-1);
@@ -40,32 +43,32 @@
     <body class="bg-dark text-white">
         <div id="app">
             <div class="row no-gutters">
-                <div class="col position-relative">
-                    <div class="embed-responsive embed-responsive-16by9" id="main">
-                        <iframe class="embed-responsive-item" src="https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io&parent=owl-buvette.test"></iframe>
-                    </div>
-                    <div v-show="pipActive" v-bind:class="[onTop ? 'pip-top' : 'pip-bottom', mirror ? 'pip-left' : 'pip-right']" class="embed-responsive embed-responsive-16by9 h-25 w-25 position-absolute" id="pip">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1"></iframe>
-                    </div>
+                <div class="col position-relative" id="players">
+                    <player
+                        v-for="player in players"
+                        v-bind:url="player.url"
+                        v-bind:is-active="pipActive"
+                        v-bind:is-pip="player.isPip"
+                    ></player>
                 </div>
                 <div class="col-auto col-chat">
-                    <div class="h-100" id="chat">
-                        <iframe class="w-100 h-100" src="https://www.twitch.tv/embed/felxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test" frameborder="0"></iframe>
+                    <div class="h-100">
+                        <iframe id="chat" class="w-100 h-100" src="https://www.twitch.tv/embed/felxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test" frameborder="0"></iframe>
                     </div>
                 </div>
             </div>
             <div class="row no-gutters text-center m-y-1">
                 <div class="col">
                     <button @click="mirrorPip" type="button" class="btn btn-link text-light" title="Place le petit lecteur à gauche ou à droite">
-                        <span class="material-icons">{{ mirror ? 'switch_left' : 'switch_right' }}</span>
+                        <span class="material-icons">{{ flipX ? 'switch_left' : 'switch_right' }}</span>
                     </button>
                     <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur" id="move">
-                        <span class="material-icons">picture_in_picture{{ onTop ? '_alt' : '' }}</span>
+                        <span class="material-icons">picture_in_picture{{ flipY ? '_alt' : '' }}</span>
                     </button>
                     <button @click="togglePip" type="button" class="btn btn-link text-light" title="Active/désactive le petit lecteur">
                         <span class="material-icons">{{ pipActive ? 'browser_not_supported' : 'crop_3_2' }}</span>
                     </button>
-                    <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs (et les rechargent)">
+                    <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs">
                         <span class="material-icons">compare_arrows</span>
                     </button>
                     <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs">
@@ -78,42 +81,78 @@
             </div>
             <p class="text-muted text-center m-0"><small>UI by <a href="https://twitter.com/notTrAsKiN" target="_blank" class="text-muted">TrAsKiN</a> &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank" class="text-muted">GitHub</a></small></p>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script> -->
         <script>
+            Vue.component('player', {
+                props: ['url', 'is-active', 'is-pip'],
+                template: `
+                    <div class="embed-responsive embed-responsive-16by9"
+                        v-show="(!isPip || (isPip && isActive))"
+                        v-bind:class="classForPip"
+                    >
+                        <iframe class="embed-responsive-item" :src="url"></iframe>
+                    </div>
+                `,
+                computed: {
+                    classForPip: function () {
+                        if (this.isPip) {
+                            var classList = 'h-25 w-25 position-absolute pip';
+                            if (this.$root.flipX) {
+                                classList += ' pip-left';
+                            } else {
+                                classList += ' pip-right';
+                            }
+                            if (this.$root.flipY) {
+                                classList += ' pip-top';
+                            } else {
+                                classList += ' pip-bottom';
+                            }
+                            return classList;
+                        } else {
+                            return '';
+                        }
+                    }
+                }
+            });
             var app = new Vue({
                 el: '#app',
                 data: {
-                    mirror: false,
-                    onTop: false,
-                    pipActive: true,
-                    alternative: false
+                    players: [
+                        { 
+                            isPip: false,
+                            url: 'https://player.twitch.tv/?channel=felxgg&parent=traskin.github.io&parent=owl-buvette.test'
+                        },
+                        {
+                            isPip: true,
+                            url: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1'
+                        }
+                    ],
+                    flipX: false,
+                    flipY: false,
+                    pipActive: true
                 },
                 methods: {
                     mirrorPip: function () {
-                        this.mirror = !this.mirror;
-                        document.querySelector('#move').classList.toggle('mirror');
+                        this.flipX = !this.flipX;
+                        document.querySelector('#move').classList.toggle('flipX');
                     },
                     movePip: function () {
-                        this.onTop = !this.onTop;
+                        this.flipY = !this.flipY;
                     },
                     togglePip: function () {
                         this.pipActive = !this.pipActive;
                     },
                     switchPlayer: function () {
-                        var mainPlayer = document.querySelector('#main iframe').src;
-                        var pipPlayer = document.querySelector('#pip iframe').src;
-                        document.querySelector('#main iframe').src = pipPlayer;
-                        document.querySelector('#pip iframe').src = mainPlayer;
+                        this.players.forEach(function (player, index, array) {
+                            array[index].isPip = !player.isPip;
+                        });
                     },
                     reloadPlayers: function () {
-                        document.querySelector('#main iframe').src = document.querySelector('#main iframe').src;
-                        document.querySelector('#pip iframe').src = document.querySelector('#pip iframe').src;
+                        document.querySelector('#players iframe').src = document.querySelector('#players iframe').src;
                     },
                     reloadChat: function () {
-                        document.querySelector('#chat iframe').src = document.querySelector('#chat iframe').src;
+                        document.querySelector('#chat').src = document.querySelector('#chat').src;
                     }
                 }
             });
