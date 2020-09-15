@@ -74,6 +74,9 @@
                     <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs">
                         <span class="material-icons">cached</span>
                     </button>
+                    <button @click="changeCast" type="button" class="btn btn-link text-light" title="Changer la langue du Cast">
+                        <span class="material-icons">hearing</span>
+                    </button>
                 </div>
                 <div class="col-auto col-chat">
                     <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat"><span class="material-icons">cached</span></button>
@@ -125,12 +128,14 @@
                         },
                         {
                             isPip: true,
-                            url: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1'
+                            url: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1',
+                            owl: true
                         }
                     ],
                     flipX: false,
                     flipY: false,
-                    pipActive: true
+                    pipActive: true,
+                    alternativeCast: 'https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw&autoplay=1'
                 },
                 methods: {
                     mirrorPip: function () {
@@ -149,7 +154,15 @@
                         });
                     },
                     reloadPlayers: function () {
-                        document.querySelector('#players iframe').src = document.querySelector('#players iframe').src;
+                        document.querySelectorAll('#players iframe').forEach(player => player.src = player.src);
+                    },
+                    changeCast: function () {
+                        var owlPlayer = document.querySelectorAll('#players iframe')[1];
+                        if (owlPlayer.src == this.players.find(player => player.owl).url) {
+                            owlPlayer.src = this.alternativeCast;
+                        } else {
+                            owlPlayer.src = this.players.find(player => player.owl).url;
+                        }
                     },
                     reloadChat: function () {
                         document.querySelector('#chat').src = document.querySelector('#chat').src;
