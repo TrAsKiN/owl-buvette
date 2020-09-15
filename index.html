@@ -7,10 +7,12 @@
         <title>La Buvette by Féfé (UI by TrAsKiN)</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <style>
             .pip{
                 z-index: 1100;
+                height: 25% !important;
+                width: 25% !important;
+                position: absolute !important;
             }
             .pip-bottom{
                 bottom: 50px;
@@ -29,14 +31,6 @@
             }
             .btn:focus{
                 box-shadow: none;
-            }
-            .flipX{
-                -moz-transform: scaleX(-1);
-                -o-transform: scaleX(-1);
-                -webkit-transform: scaleX(-1);
-                transform: scaleX(-1);
-                filter: FlipH;
-                -ms-filter: "FlipH";
             }
         </style>
     </head>
@@ -60,32 +54,34 @@
             <div class="row no-gutters text-center m-y-1">
                 <div class="col">
                     <button @click="mirrorPip" type="button" class="btn btn-link text-light" title="Place le petit lecteur à gauche ou à droite">
-                        <span class="material-icons">{{ flipX ? 'switch_left' : 'switch_right' }}</span>
+                        <ion-icon name="swap-horizontal-outline"></ion-icon>
                     </button>
                     <button @click="movePip" type="button" class="btn btn-link text-light" title="Changer la position du petit lecteur" id="move">
-                        <span class="material-icons">picture_in_picture{{ flipY ? '_alt' : '' }}</span>
+                        <ion-icon name="swap-vertical-outline"></ion-icon>
                     </button>
                     <button @click="togglePip" type="button" class="btn btn-link text-light" title="Active/désactive le petit lecteur">
-                        <span class="material-icons">{{ pipActive ? 'browser_not_supported' : 'crop_3_2' }}</span>
+                        <ion-icon name="eye-outline"></ion-icon>
                     </button>
                     <button @click="switchPlayer" type="button" class="btn btn-link text-light" title="Inverser les deux lecteurs">
-                        <span class="material-icons">compare_arrows</span>
+                        <ion-icon name="repeat-outline"></ion-icon>
                     </button>
                     <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs">
-                        <span class="material-icons">cached</span>
+                        <ion-icon name="refresh-outline"></ion-icon>
                     </button>
                     <button @click="changeCast" type="button" class="btn btn-link text-light" title="Changer la langue du Cast">
-                        <span class="material-icons">hearing</span>
+                        <ion-icon name="ear-outline"></ion-icon>
                     </button>
                 </div>
                 <div class="col-auto col-chat">
-                    <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat"><span class="material-icons">cached</span></button>
+                    <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat">
+                        <ion-icon name="refresh-outline"></ion-icon>
+                    </button>
                 </div>
             </div>
             <p class="text-muted text-center m-0"><small>UI by <a href="https://twitter.com/notTrAsKiN" target="_blank" class="text-muted">TrAsKiN</a> &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank" class="text-muted">GitHub</a></small></p>
         </div>
-        <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+        <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
         <script>
             Vue.component('player', {
                 props: ['url', 'is-active', 'is-pip'],
@@ -100,18 +96,7 @@
                 computed: {
                     classForPip: function () {
                         if (this.isPip) {
-                            var classList = 'h-25 w-25 position-absolute pip';
-                            if (this.$root.flipX) {
-                                classList += ' pip-left';
-                            } else {
-                                classList += ' pip-right';
-                            }
-                            if (this.$root.flipY) {
-                                classList += ' pip-top';
-                            } else {
-                                classList += ' pip-bottom';
-                            }
-                            return classList;
+                            return 'pip '+ (this.$root.flipX ? 'pip-left' : 'pip-right') +' '+ (this.$root.flipY ? 'pip-top' : 'pip-bottom');
                         } else {
                             return '';
                         }
@@ -140,7 +125,6 @@
                 methods: {
                     mirrorPip: function () {
                         this.flipX = !this.flipX;
-                        document.querySelector('#move').classList.toggle('flipX');
                     },
                     movePip: function () {
                         this.flipY = !this.flipY;
