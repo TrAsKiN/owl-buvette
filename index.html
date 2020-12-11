@@ -173,6 +173,11 @@
                     reloadChat: function () {
                         document.querySelector('#chat').src = document.querySelector('#chat').src;
                     }
+                },
+                mounted: function () {
+                    if (window.location.hash) {
+                        this.changeCast(window.location.hash.substring(1));
+                    }
                 }
             });
         </script>
