@@ -68,9 +68,17 @@
                     <button @click="reloadPlayers" type="button" class="btn btn-link text-light" title="Recharger les lecteurs">
                         <ion-icon name="refresh-outline"></ion-icon>
                     </button>
-                    <button @click="changeCast" type="button" class="btn btn-link text-light" title="Changer la langue du Cast">
-                        <ion-icon name="ear-outline"></ion-icon>
-                    </button>
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-link text-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Changer la langue du Cast">
+                            <ion-icon name="ear-outline"></ion-icon>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#owlFr" @click="changeCast('owlFr')">OWL FR</a>
+                            <a class="dropdown-item" href="#owlEn" @click="changeCast('owlEn')">OWL EN</a>
+                            <a class="dropdown-item" href="#conFr" @click="changeCast('conFr')">Contenders FR</a>
+                            <a class="dropdown-item" href="#conEn" @click="changeCast('conEn')">Contenders EN</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-auto col-chat">
                     <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat">
@@ -80,6 +88,8 @@
             </div>
             <p class="text-muted text-center m-0"><small>UI by <a href="https://twitter.com/notTrAsKiN" target="_blank" class="text-muted">TrAsKiN</a> &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank" class="text-muted">GitHub</a></small></p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
         <script>
@@ -120,7 +130,10 @@
                     flipX: false,
                     flipY: false,
                     pipActive: true,
-                    alternativeCast: 'https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw&autoplay=1'
+                    owlFR: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1',
+                    owlEN: 'https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw&autoplay=1',
+                    contendersFR: 'https://www.youtube.com/embed/live_stream?channel=UCJIvTeyysEHViDfNz3stLYQ&autoplay=1',
+                    contendersEN: 'https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg&autoplay=1'
                 },
                 methods: {
                     mirrorPip: function () {
@@ -140,12 +153,21 @@
                     reloadPlayers: function () {
                         document.querySelectorAll('#players iframe').forEach(player => player.src = player.src);
                     },
-                    changeCast: function () {
+                    changeCast: function (newCast) {
                         var owlPlayer = document.querySelectorAll('#players iframe')[1];
-                        if (owlPlayer.src == this.players.find(player => player.owl).url) {
-                            owlPlayer.src = this.alternativeCast;
-                        } else {
-                            owlPlayer.src = this.players.find(player => player.owl).url;
+                        switch (newCast) {
+                            case 'owlFr':
+                                owlPlayer.src = this.owlFR;
+                                break;
+                            case 'owlEn':
+                                owlPlayer.src = this.owlEN;
+                                break;
+                            case 'conFr':
+                                owlPlayer.src = this.contendersFR;
+                                break;
+                            case 'conEn':
+                                owlPlayer.src = this.contendersEN;
+                                break;
                         }
                     },
                     reloadChat: function () {
