@@ -71,10 +71,11 @@
                             <ion-icon name="ear-outline"></ion-icon>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#owlFr" @click="changeCast('owlFr')">OWL FR</a>
-                            <a class="dropdown-item" href="#owlEn" @click="changeCast('owlEn')">OWL EN</a>
-                            <a class="dropdown-item" href="#conFr" @click="changeCast('conFr')">Contenders FR</a>
-                            <a class="dropdown-item" href="#conEn" @click="changeCast('conEn')">Contenders EN</a>
+                            <a class="dropdown-item" href="#owlFR" @click="changeCast">OWL FR</a>
+                            <a class="dropdown-item" href="#owlEN" @click="changeCast">OWL EN</a>
+                            <a class="dropdown-item" href="#contendersFR" @click="changeCast">Contenders FR</a>
+                            <a class="dropdown-item" href="#contendersEN" @click="changeCast">Contenders EN</a>
+                            <a class="dropdown-item" href="#nextTournaments" @click="changeCast">NeXT Tournaments</a>
                         </div>
                     </div>
                 </div>
@@ -86,10 +87,10 @@
             </div>
             <p class="text-muted text-center m-0 mt-1"><small>UI by <a href="https://twitter.com/notTrAsKiN" target="_blank" class="text-muted">TrAsKiN</a> &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank" class="text-muted">GitHub</a> &middot; <span id="version">v1</span></small></p>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
-        <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/ionicons@5/dist//ionicons.js"></script>
         <script>
             Vue.component('player', {
                 props: ['url', 'is-active', 'is-pip'],
@@ -115,7 +116,7 @@
                 el: '#app',
                 data: {
                     players: [
-                        { 
+                        {
                             isPip: false,
                             url: 'https://player.twitch.tv/?channel=fefelxgg&parent=traskin.github.io&parent=owl-buvette.test'
                         },
@@ -130,7 +131,8 @@
                     owlFR: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1',
                     owlEN: 'https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw&autoplay=1',
                     contendersFR: 'https://www.youtube.com/embed/live_stream?channel=UCJIvTeyysEHViDfNz3stLYQ&autoplay=1',
-                    contendersEN: 'https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg&autoplay=1'
+                    contendersEN: 'https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg&autoplay=1',
+                    nextTournaments: 'https://cc.163.com/260825191/'
                 },
                 methods: {
                     mirrorPip: function () {
@@ -150,22 +152,15 @@
                     reloadPlayers: function () {
                         document.querySelectorAll('#players iframe').forEach(player => player.src = player.src);
                     },
-                    changeCast: function (newCast) {
-                        var owlPlayer = document.querySelectorAll('#players iframe')[1];
-                        switch (newCast) {
-                            case 'owlFr':
-                                owlPlayer.src = this.owlFR;
-                                break;
-                            case 'owlEn':
-                                owlPlayer.src = this.owlEN;
-                                break;
-                            case 'conFr':
-                                owlPlayer.src = this.contendersFR;
-                                break;
-                            case 'conEn':
-                                owlPlayer.src = this.contendersEN;
-                                break;
+                    changeCast: function (event) {
+                        const owlPlayer = document.querySelectorAll('#players iframe')[1];
+                        let newCast;
+                        if (event.target) {
+                            newCast = event.target.hash.substring(1);
+                        } else {
+                            newCast = window.location.hash.substring(1);
                         }
+                        owlPlayer.src = this[newCast];
                     },
                     reloadChat: function () {
                         document.querySelector('#chat').src = document.querySelector('#chat').src;
@@ -178,7 +173,7 @@
                         trigger: 'hover'
                     });
                     if (window.location.hash) {
-                        this.changeCast(window.location.hash.substring(1));
+                        this.changeCast(this);
                     }
                 }
             });
