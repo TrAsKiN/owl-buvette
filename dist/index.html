@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>La Buvette by Féfé (UI by TrAsKiN)</title>
+    </head>
+    <body class="bg-dark text-white overflow-hidden">
+        <div id="app">
+            <div class="row g-0">
+                <div class="col position-relative" id="players">
+                    <player
+                        v-for="player in players"
+                        v-bind:url="player.url"
+                        v-bind:is-active="pipActive"
+                        v-bind:is-pip="player.isPip"
+                    class="ratio ratio-16x9"></player>
+                </div>
+                <div class="col-auto col-chat">
+                    <div class="h-100">
+                        <iframe id="chat" class="w-100 h-100" src="https://www.twitch.tv/embed/fefelxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters text-center m-y-1">
+                <div class="col">
+                    <button @click="mirrorPip" type="button" class="btn btn-link link-secondary" title="Placer à gauche ou à droite">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </button>
+                    <button @click="movePip" type="button" class="btn btn-link link-secondary" title="Placer en haut ou en bas">
+                        <i class="bi bi-arrow-down-up"></i>
+                    </button>
+                    <button @click="togglePip" type="button" class="btn btn-link link-secondary" title="Activer/désactiver le lecteur">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button @click="switchPlayer" type="button" class="btn btn-link link-secondary" title="Inverser les deux lecteurs">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </button>
+                    <button @click="reloadPlayers" type="button" class="btn btn-link link-secondary" title="Recharger les lecteurs">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                    <div class="btn-group dropup" title="Changer la langue du cast">
+                        <button type="button" class="btn btn-link link-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi bi-chat-dots"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-dark">
+                            <a class="dropdown-item active" href="#owlFR" @click="changeCast">OWL FR</a>
+                            <a class="dropdown-item" href="#owlEN" @click="changeCast">OWL EN</a>
+                            <a class="dropdown-item" href="#contendersFR" @click="changeCast">Contenders FR</a>
+                            <a class="dropdown-item" href="#contendersEN" @click="changeCast">Contenders EN</a>
+                            <a class="dropdown-item" href="#nextTournaments" @click="changeCast">NeXT Tournaments</a>
+                            <a class="dropdown-item" href="#flashOPS" @click="changeCast">Flash OPS EU</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto col-chat">
+                    <button @click="reloadChat" type="button" class="btn btn-link text-light" title="Recharger le chat">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                </div>
+            </div>
+            <p class="text-muted text-center m-0 mt-1"><small>UI by <a href="https://twitter.com/notTrAsKiN" target="_blank" class="text-muted">TrAsKiN</a> &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank" class="text-muted">GitHub</a> &middot; <span id="version">v1</span></small></p>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
