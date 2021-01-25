@@ -91,6 +91,7 @@ let app = new Vue({
         if (window.location.hash) {
             this.changeCast(this);
         }
+        this.switchPlayer();
     }
 });
 
