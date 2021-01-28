@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>La Buvette by Féfé (UI by TrAsKiN)</title>
+        <link rel="stylesheet" href="main.css">
     </head>
     <body class="bg-dark text-white overflow-hidden">
         <div id="app">
@@ -14,33 +15,34 @@
                         v-bind:url="player.url"
                         v-bind:is-active="pipActive"
                         v-bind:is-pip="player.isPip"
+                        v-bind:id="player.id"
                     class="ratio ratio-16x9"></player>
                 </div>
                 <div class="col-auto col-chat">
                     <div class="h-100">
-                        <iframe id="chat" class="w-100 h-100" src="https://www.twitch.tv/embed/fefelxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test" frameborder="0"></iframe>
+                        <iframe id="chat" class="w-100 h-100" src="https://www.twitch.tv/embed/fefelxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test"></iframe>
                     </div>
                 </div>
             </div>
             <div class="row no-gutters text-center m-y-1">
                 <div class="col">
-                    <button @click="mirrorPip" type="button" class="btn btn-link link-secondary" title="Placer à gauche ou à droite">
+                    <button @click="mirrorPip" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer à gauche ou à droite">
                         <i class="bi bi-arrow-left-right"></i>
                     </button>
-                    <button @click="movePip" type="button" class="btn btn-link link-secondary" title="Placer en haut ou en bas">
+                    <button @click="movePip" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer en haut ou en bas">
                         <i class="bi bi-arrow-down-up"></i>
                     </button>
-                    <button @click="togglePip" type="button" class="btn btn-link link-secondary" title="Activer/désactiver le lecteur">
+                    <button @click="togglePip" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Activer/désactiver le lecteur">
                         <i class="bi bi-eye"></i>
                     </button>
-                    <button @click="switchPlayer" type="button" class="btn btn-link link-secondary" title="Inverser les deux lecteurs">
+                    <button @click="switchPlayer" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inverser les deux lecteurs">
                         <i class="bi bi-arrow-repeat"></i>
                     </button>
-                    <button @click="reloadPlayers" type="button" class="btn btn-link link-secondary" title="Recharger les lecteurs">
+                    <button @click="reloadPlayers" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger les lecteurs">
                         <i class="bi bi-arrow-clockwise"></i>
                     </button>
-                    <div class="btn-group dropup" title="Changer la langue du cast">
-                        <button type="button" class="btn btn-link link-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="btn-group dropup" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Changer la langue du cast">
+                        <button type="button" class="btn btn-link link-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-chat-dots"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-dark">
@@ -54,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-auto col-chat">
-                    <button @click="reloadChat" type="button" class="btn btn-link link-secondary" title="Recharger le chat">
+                    <button @click="reloadChat" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger le chat">
                         <i class="bi bi-arrow-clockwise"></i>
                     </button>
                 </div>

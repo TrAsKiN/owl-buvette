@@ -1,12 +1,10 @@
-import '@popperjs/core/dist/umd/popper.min';
-import 'bootstrap/dist/js/bootstrap.min'
+import { Tooltip } from 'bootstrap/dist/js/bootstrap';
+import { Octokit } from "@octokit/rest";
+import Vue from "vue";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './style.css';
-
-import { Octokit } from "@octokit/rest";
-import Vue from "vue";
 
 Vue.component('player', {
     props: ['url', 'is-active', 'is-pip'],
@@ -28,15 +26,18 @@ Vue.component('player', {
         }
     }
 });
-let app = new Vue({
+
+new Vue({
     el: '#app',
     data: {
         players: [
             {
+                id: 'twitch-embed',
                 isPip: false,
                 url: 'https://player.twitch.tv/?channel=fefelxgg&parent=traskin.github.io&parent=owl-buvette.test'
             },
             {
+                id: 'youtube-embed',
                 isPip: true,
                 url: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1'
             }
@@ -67,13 +68,13 @@ let app = new Vue({
             });
         },
         reloadPlayers: function () {
-            document.querySelectorAll('#players iframe').forEach(player => player.src = player.src);
+            document.querySelectorAll('#players iframe').forEach(player => player.src += '');
         },
         changeCast: function (event) {
             if (document.querySelector('.dropdown-item.active')) {
                 document.querySelector('.dropdown-item.active').classList.remove('active');
             }
-            const owlPlayer = document.querySelectorAll('#players iframe')[1];
+            const owlPlayer = document.querySelector('#youtube-embed iframe');
             let newCast;
             if (event.target) {
                 newCast = event.target.hash.substring(1);
@@ -84,7 +85,7 @@ let app = new Vue({
             document.querySelector('.dropdown-item[href="#'+ newCast +'"]').classList.add('active');
         },
         reloadChat: function () {
-            document.querySelector('#chat').src = document.querySelector('#chat').src;
+            document.querySelector('#chat').src += '';
         }
     },
     mounted: function () {
@@ -92,15 +93,22 @@ let app = new Vue({
             this.changeCast(this);
         }
         this.switchPlayer();
+
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new Tooltip(tooltipTriggerEl, {
+                fallbackPlacements: ['bottom']
+            });
+        });
+
+        const octokit = new Octokit();
+        octokit.repos
+            .getLatestRelease({
+                owner: 'TrAsKiN',
+                repo: 'owl-buvette',
+            })
+            .then(({ data }) => {
+                document.querySelector('#version').innerHTML = data.tag_name;
+            });
     }
 });
-
-const octokit = new Octokit();
-octokit.repos
-    .getLatestRelease({
-        owner: 'TrAsKiN',
-        repo: 'owl-buvette',
-    })
-    .then(({ data }) => {
-        document.querySelector('#version').innerHTML = data.tag_name;
-    });
