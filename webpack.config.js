@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     mode: 'production',
@@ -44,17 +45,15 @@ module.exports = {
             new CssMinimizerPlugin(),
         ]
     },
-    plugins: [new MiniCssExtractPlugin({
-        filename: 'main.css'
-    })],
-    performance: {
-        hints: false,
-        maxEntrypointSize: 512000,
-        maxAssetSize: 512000
-    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'main.css'
+        }),
+        new TerserPlugin()
+    ],
     resolve: {
         alias: {
-            'vue$': 'vue/dist/vue.runtime.esm.js'
+            'vue$': 'vue/dist/vue.esm.js'
         }
     }
 };
