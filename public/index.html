@@ -8,20 +8,20 @@
     </head>
     <body class="bg-dark text-white overflow-hidden">
         <div id="app">
-            <div class="row g-0">
+            <div class="row g-0 position-relative">
+                <div id="resizer"></div>
                 <div
                      class="col position-relative"
                      id="players"
                      v-bind:class="(this.flipX ? 'pip-left' : 'pip-right') + ' ' + (this.flipY ? 'pip-top' : 'pip-bottom')"
                 >
-                    <div id="resizer"></div>
                     <player
                         v-for="player in players"
                         v-bind:url="player.url"
                         v-bind:is-active="pipActive"
                         v-bind:is-pip="player.isPip"
                         v-bind:id="player.id"
-                    class="ratio ratio-16x9"></player>
+                    class="player ratio ratio-16x9"></player>
                 </div>
                 <div class="col-auto col-chat">
                     <div class="h-100">

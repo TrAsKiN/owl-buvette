@@ -1,6 +1,9 @@
 @import '~bootstrap';
-
 @import '~bootstrap-icons/font/bootstrap-icons.css';
+
+:root{
+    --chat-width: 370px;
+}
 
 .pip{
     z-index: 1;
@@ -24,7 +27,7 @@
     transform: translateY(15px) translateX(15px);
 }
 .col-chat{
-    width: 370px;
+    width: var(--chat-width);
 }
 .btn:focus{
     box-shadow: none;
@@ -33,13 +36,24 @@
     z-index: 1;
     position: absolute;
     top: 0;
-    right: 0;
+    right: calc(var(--chat-width) - 2px);
     width: 4px;
     height: 100%;
     cursor: col-resize;
-    background-color: darkslategray;
+    text-align: center;
     &:hover{
-        background-color: gray;
-        width: 10px;
+        width: 30px;
+        right: calc(var(--chat-width) - 15px);
+        &:after{
+            background-color: gray;
+        }
     }
+}
+#resizer:after{
+    content: '';
+    display: block;
+    width: 4px;
+    height: 100%;
+    margin: auto;
+    background-color: darkslategray;
 }

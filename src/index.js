@@ -86,7 +86,10 @@ new Vue({
         let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new Tooltip(tooltipTriggerEl, {
-                fallbackPlacements: ['bottom']
+                placement: 'bottom',
+                fallbackPlacements: ['bottom'],
+                animation: false,
+                trigger: 'hover'
             });
         });
 
@@ -104,13 +107,15 @@ new Vue({
         let x = 0;
         const resizer = document.querySelector('#resizer');
         const chat = document.querySelector('.col-chat');
+        const root = document.querySelector(':root');
         resizer.addEventListener('mousedown', e => {
             isResizing = true;
             x = e.x;
         });
         window.addEventListener('mousemove', e => {
             if (isResizing === true) {
-                chat.style.width = (chat.clientWidth + (x - e.x)) + 'px';
+                const position = (chat.clientWidth + (x - e.x)) + 'px';
+                root.style.setProperty('--chat-width', position);
                 x = e.x;
             }
         });
