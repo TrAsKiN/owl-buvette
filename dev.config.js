@@ -4,7 +4,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './src/index.js',
     output: {
         filename: 'main.js',
@@ -42,7 +42,7 @@ module.exports = {
         ]
     },
     optimization: {
-        minimize: true,
+        minimize: false,
         minimizer: [
             new CssMinimizerPlugin(),
         ]

@@ -2,29 +2,18 @@ import { Tooltip } from 'bootstrap/dist/js/bootstrap';
 import { Octokit } from "@octokit/rest";
 import Vue from "vue";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import './style.css';
+import './style.scss';
 
 Vue.component('player', {
     props: ['url', 'is-active', 'is-pip'],
     template: `
         <div
             v-show="(!isPip || (isPip && isActive))"
-            v-bind:class="classForPip"
+            v-bind:class="(isPip ? 'pip' : '')"
         >
             <iframe :src="url"></iframe>
         </div>
-    `,
-    computed: {
-        classForPip: function () {
-            if (this.isPip) {
-                return 'pip '+ (this.$root.flipX ? 'pip-left' : 'pip-right') +' '+ (this.$root.flipY ? 'pip-top' : 'pip-bottom');
-            } else {
-                return '';
-            }
-        }
-    }
+    `
 });
 
 new Vue({
@@ -110,5 +99,30 @@ new Vue({
             .then(({ data }) => {
                 document.querySelector('#version').innerHTML = data.tag_name;
             });
+
+        let isResizing = false;
+        let x = 0;
+        const resizer = document.querySelector('#resizer');
+        const chat = document.querySelector('.col-chat');
+        resizer.addEventListener('mousedown', e => {
+            isResizing = true;
+            x = e.x;
+        });
+        window.addEventListener('mousemove', e => {
+            if (isResizing === true) {
+                chat.style.width = (chat.clientWidth + (x - e.x)) + 'px';
+                x = e.x;
+            }
+        });
+        resizer.addEventListener('mouseleave', e => {
+            if (isResizing === true) {
+                isResizing = false;
+            }
+        });
+        window.addEventListener('mouseup', e => {
+            if (isResizing === true) {
+                isResizing = false;
+            }
+        });
     }
 });

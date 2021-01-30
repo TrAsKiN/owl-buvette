@@ -1,0 +1,45 @@
+@import '~bootstrap';
+
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+.pip{
+    z-index: 1;
+    height: 25% !important;
+    width: 25% !important;
+    position: absolute !important;
+    transition: transform 100ms ease-in-out;
+    top: 0;
+    left: 0;
+}
+.pip-bottom.pip-right .pip{
+    transform: translateY(calc(300% - 50px)) translateX(calc(300% - 15px));
+}
+.pip-top.pip-right .pip{
+    transform: translateY(15px) translateX(calc(300% - 15px));
+}
+.pip-bottom.pip-left .pip{
+    transform: translateY(calc(300% - 50px)) translateX(15px);
+}
+.pip-top.pip-left .pip{
+    transform: translateY(15px) translateX(15px);
+}
+.col-chat{
+    width: 370px;
+}
+.btn:focus{
+    box-shadow: none;
+}
+#resizer{
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    cursor: col-resize;
+    background-color: darkslategray;
+    &:hover{
+        background-color: gray;
+        width: 10px;
+    }
+}
