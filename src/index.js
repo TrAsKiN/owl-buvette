@@ -16,6 +16,16 @@ Vue.component('player', {
     `
 });
 
+Vue.component('link-cast', {
+    props: ['hash', 'name', 'is-disabled'],
+    template: `
+      <a
+          v-bind:class="(isDisabled ? 'disabled' : '')"
+          :href="hash"
+      >{{ name }}</a>
+    `
+});
+
 new Vue({
     el: '#app',
     data: {
@@ -31,15 +41,47 @@ new Vue({
                 url: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1'
             }
         ],
+        casts: [
+            {
+                hash: '#owlFR',
+                name: 'OWL FR',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1'
+            },
+            {
+                hash: '#owlEN',
+                name: 'OWL EN',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw&autoplay=1'
+            },
+            {
+                hash: '#contendersFR',
+                name: 'Contenders FR',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCJIvTeyysEHViDfNz3stLYQ&autoplay=1'
+            },
+            {
+                hash: '#contendersEN',
+                name: 'Contenders EN',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg&autoplay=1'
+            },
+            {
+                hash: '#flashOPS',
+                name: 'Kanezaka Tournaments',
+                disabled: true,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCjmE_Ed2R-Rk2ciRtkzwSrA&autoplay=1'
+            },
+            {
+                hash: '#nextTournaments',
+                name: 'NeXT Tournaments',
+                disabled: true,
+                url: 'https://cc.163.com/260825191/'
+            }
+        ],
         flipX: false,
         flipY: false,
-        pipActive: true,
-        owlFR: 'https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow&autoplay=1',
-        owlEN: 'https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw&autoplay=1',
-        contendersFR: 'https://www.youtube.com/embed/live_stream?channel=UCJIvTeyysEHViDfNz3stLYQ&autoplay=1',
-        contendersEN: 'https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg&autoplay=1',
-        flashOPS: 'https://www.youtube.com/embed/live_stream?channel=UCjmE_Ed2R-Rk2ciRtkzwSrA&autoplay=1',
-        nextTournaments: 'https://cc.163.com/260825191/'
+        pipActive: true
     },
     methods: {
         mirrorPip: function () {
@@ -66,12 +108,12 @@ new Vue({
             const owlPlayer = document.querySelector('#youtube-embed iframe');
             let newCast;
             if (event.target) {
-                newCast = event.target.hash.substring(1);
+                newCast = event.target.hash;
             } else {
-                newCast = window.location.hash.substring(1);
+                newCast = window.location.hash;
             }
-            owlPlayer.src = this[newCast];
-            document.querySelector('.dropdown-item[href="#'+ newCast +'"]').classList.add('active');
+            owlPlayer.src = this.casts.find(cast => cast.hash === newCast).url;
+            document.querySelector('.dropdown-item[href="'+ newCast +'"]').classList.add('active');
         },
         reloadChat: function () {
             document.querySelector('#chat').src += '';

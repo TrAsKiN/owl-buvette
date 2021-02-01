@@ -21,7 +21,8 @@
                         v-bind:is-active="pipActive"
                         v-bind:is-pip="player.isPip"
                         v-bind:id="player.id"
-                    class="player ratio ratio-16x9"></player>
+                        class="player ratio ratio-16x9"
+                    ></player>
                 </div>
                 <div class="col-auto col-chat">
                     <div class="h-100">
@@ -51,12 +52,15 @@
                             <i class="bi bi-chat-dots"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-dark">
-                            <a class="dropdown-item active" href="#owlFR" @click="changeCast">OWL FR</a>
-                            <a class="dropdown-item" href="#owlEN" @click="changeCast">OWL EN</a>
-                            <a class="dropdown-item" href="#contendersFR" @click="changeCast">Contenders FR</a>
-                            <a class="dropdown-item" href="#contendersEN" @click="changeCast">Contenders EN</a>
-                            <a class="dropdown-item disabled" href="#nextTournaments" @click="changeCast">NeXT Tournaments</a>
-                            <a class="dropdown-item disabled" href="#flashOPS" @click="changeCast">Flash OPS EU</a>
+                            <link-cast
+                                v-for="(cast, index) in casts"
+                                v-bind:hash="cast.hash"
+                                v-bind:name="cast.name"
+                                v-bind:is-disabled="cast.disabled"
+                                v-bind:class="(index === 0) ? 'active' : ''"
+                                @click.native="changeCast"
+                                class="dropdown-item"
+                            ></link-cast>
                         </div>
                     </div>
                 </div>
