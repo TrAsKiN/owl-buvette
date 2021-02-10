@@ -77,6 +77,12 @@ new Vue({
                 name: 'NeXT Tournaments',
                 disabled: true,
                 url: 'https://cc.163.com/260825191/'
+            },
+            {
+                hash: '#otpLoL',
+                name: 'OTP LoL',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=otplol_&parent=traskin.github.io&parent=owl-buvette.test'
             }
         ],
         flipX: false,
