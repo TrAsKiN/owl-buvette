@@ -7,27 +7,50 @@
 
 .pip{
     z-index: 1;
-    height: 25% !important;
-    width: 25% !important;
-    position: absolute !important;
-    transition: transform 100ms ease-in-out;
-    top: 0;
-    left: 0;
+    @include media-breakpoint-up(md) {
+        height: 25% !important;
+        width: 25% !important;
+        position: absolute !important;
+        transition: transform 100ms ease-in-out;
+        top: 0;
+        left: 0;
+    }
+}
+.player{
+    @include media-breakpoint-only(sm) {
+        width: 50% !important;
+    }
 }
 .pip-bottom.pip-right .pip{
-    transform: translateY(calc(300% - 50px)) translateX(calc(300% - 15px));
+    @include media-breakpoint-up(md) {
+        transform: translateY(calc(300% - 50px)) translateX(calc(300% - 15px));
+    }
 }
 .pip-top.pip-right .pip{
-    transform: translateY(15px) translateX(calc(300% - 15px));
+    @include media-breakpoint-up(md) {
+        transform: translateY(15px) translateX(calc(300% - 15px));
+    }
 }
 .pip-bottom.pip-left .pip{
-    transform: translateY(calc(300% - 50px)) translateX(15px);
+    @include media-breakpoint-up(md) {
+        transform: translateY(calc(300% - 50px)) translateX(15px);
+    }
 }
 .pip-top.pip-left .pip{
-    transform: translateY(15px) translateX(15px);
+    @include media-breakpoint-up(md) {
+        transform: translateY(15px) translateX(15px);
+    }
 }
 .col-chat{
     width: var(--chat-width);
+    @include media-breakpoint-down(md) {
+        width: auto;
+    }
+}
+#chat{
+    @include media-breakpoint-down(md) {
+        height: 100vh !important;
+    }
 }
 .btn:focus{
     box-shadow: none;

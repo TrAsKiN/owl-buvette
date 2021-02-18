@@ -17,12 +17,13 @@ Vue.component('player', {
 });
 
 Vue.component('link-cast', {
-    props: ['hash', 'name', 'is-disabled'],
+    props: ['hash', 'name', 'active'],
     template: `
-      <a
-          v-bind:class="(isDisabled ? 'disabled' : '')"
+      <li><a
+          v-bind:class="active"
           :href="hash"
-      >{{ name }}</a>
+          class="dropdown-item"
+      >{{ name }}</a></li>
     `
 });
 
@@ -65,6 +66,30 @@ new Vue({
                 name: 'Contenders EN',
                 disabled: false,
                 url: 'https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg&autoplay=1'
+            },
+            {
+                hash: '#overwatchYT',
+                name: 'Overwatch YT',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UClOf1XXinvZsy4wKPAkro2A&autoplay=1'
+            },
+            {
+                hash: '#overwatchTTV',
+                name: 'Overwatch TTV',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=playoverwatch&parent=traskin.github.io&parent=owl-buvette.test'
+            },
+            {
+                hash: '#blizzardYT',
+                name: 'Blizzard YT',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UC3GriadTkHBnfgd2UFETGOA&autoplay=1'
+            },
+            {
+                hash: '#blizzardTTV',
+                name: 'Blizzard TTV',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=blizzard&parent=traskin.github.io&parent=owl-buvette.test'
             },
             {
                 hash: '#flashOPS',
