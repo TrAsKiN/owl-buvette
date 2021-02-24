@@ -70,25 +70,25 @@ new Vue({
             {
                 hash: '#overwatchYT',
                 name: 'Overwatch YT',
-                disabled: false,
+                disabled: true,
                 url: 'https://www.youtube.com/embed/live_stream?channel=UClOf1XXinvZsy4wKPAkro2A&autoplay=1'
             },
             {
                 hash: '#overwatchTTV',
                 name: 'Overwatch TTV',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=playoverwatch&parent=traskin.github.io&parent=owl-buvette.test'
             },
             {
                 hash: '#blizzardYT',
                 name: 'Blizzard YT',
-                disabled: false,
+                disabled: true,
                 url: 'https://www.youtube.com/embed/live_stream?channel=UC3GriadTkHBnfgd2UFETGOA&autoplay=1'
             },
             {
                 hash: '#blizzardTTV',
                 name: 'Blizzard TTV',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=blizzard&parent=traskin.github.io&parent=owl-buvette.test'
             },
             {
