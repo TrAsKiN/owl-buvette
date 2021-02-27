@@ -106,8 +106,14 @@ new Vue({
             {
                 hash: '#otpLoL',
                 name: 'OTP LoL',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=otplol_&parent=traskin.github.io&parent=owl-buvette.test'
+            },
+            {
+                hash: '#steelSeries',
+                name: 'SteelSeries',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=steelseries&parent=traskin.github.io&parent=owl-buvette.test'
             }
         ],
         flipX: false,
