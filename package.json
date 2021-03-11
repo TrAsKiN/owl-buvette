@@ -1,6 +1,6 @@
 {
   "name": "owl-buvette",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "A multiple player for the OWL viewing parties by Féfé",
   "private": true,
   "scripts": {

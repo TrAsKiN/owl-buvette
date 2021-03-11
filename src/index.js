@@ -112,8 +112,14 @@ new Vue({
             {
                 hash: '#steelSeries',
                 name: 'SteelSeries',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=steelseries&parent=traskin.github.io&parent=owl-buvette.test'
+            },
+            {
+                hash: '#contendersTrials',
+                name: 'Contenders Trials EU',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCLj0Gz2FQKDyCWE5gk4iO_A&autoplay=1'
             }
         ],
         flipX: false,
@@ -198,12 +204,12 @@ new Vue({
                 x = e.x;
             }
         });
-        resizer.addEventListener('mouseleave', e => {
+        resizer.addEventListener('mouseleave', () => {
             if (isResizing === true) {
                 isResizing = false;
             }
         });
-        window.addEventListener('mouseup', e => {
+        window.addEventListener('mouseup', () => {
             if (isResizing === true) {
                 isResizing = false;
             }
