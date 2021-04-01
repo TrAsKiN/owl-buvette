@@ -9,7 +9,7 @@
     <body class="bg-dark text-white">
         <div id="app">
             <div class="row g-0 position-relative d-block d-md-flex">
-                <div id="resizer" class="d-none d-md-block"></div>
+                <div v-if="showChat" id="resizer" class="d-none d-md-block"></div>
                 <div
                      class="col position-relative"
                      id="players"
@@ -26,7 +26,7 @@
                         ></player>
                     </div>
                 </div>
-                <div class="col-md-auto col-12 col-chat">
+                <div v-if="showChat" class="col-md-auto col-12 col-chat">
                     <div class="h-100">
                         <iframe id="chat" class="w-100 h-100" src="https://www.twitch.tv/embed/fefelxgg/chat?darkpopout&parent=traskin.github.io&parent=owl-buvette.test"></iframe>
                     </div>
@@ -66,8 +66,12 @@
                     </div>
                 </div>
                 <div class="col-auto col-chat">
-                    <button @click="reloadChat" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger le chat">
+                    <button v-if="showChat" @click="reloadChat" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger le chat">
                         <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                    <button @click="toggleChat" type="button" class="btn btn-link link-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Basculer le chat">
+                        <i v-if="showChat"class="bi bi-arrow-bar-right"></i>
+                        <i v-if="!showChat" class="bi bi-arrow-bar-left"></i>
                     </button>
                 </div>
             </div>
