@@ -124,7 +124,8 @@ new Vue({
         ],
         flipX: false,
         flipY: false,
-        pipActive: true
+        pipActive: true,
+        showChat: true,
     },
     methods: {
         mirrorPip: function () {
@@ -135,6 +136,9 @@ new Vue({
         },
         togglePip: function () {
             this.pipActive = !this.pipActive;
+        },
+        toggleChat: function () {
+            this.showChat = !this.showChat;
         },
         switchPlayer: function () {
             this.players.forEach(function (player, index, array) {
