@@ -125,7 +125,7 @@ new Vue({
         flipX: false,
         flipY: false,
         pipActive: true,
-        showChat: true,
+        showChat: true
     },
     methods: {
         mirrorPip: function () {
@@ -192,6 +192,7 @@ new Vue({
                 document.querySelector('#version').innerHTML = data.tag_name;
             });
 
+        /*
         let isResizing = false;
         let x = 0;
         const resizer = document.querySelector('#resizer');
@@ -218,5 +219,6 @@ new Vue({
                 isResizing = false;
             }
         });
+        */
     }
 });

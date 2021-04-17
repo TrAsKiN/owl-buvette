@@ -4,7 +4,13 @@
 :root{
     --chat-width: 380px;
 }
-
+body{
+    &::-webkit-scrollbar {
+        width: 0 !important
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 .pip{
     z-index: 1;
     @include media-breakpoint-up(md) {
@@ -15,6 +21,9 @@
         top: 0;
         left: 0;
     }
+}
+#youtube-embed{
+    max-height: 100vh;
 }
 .player{
     @include media-breakpoint-only(sm) {
@@ -79,4 +88,8 @@
     height: 100%;
     margin: auto;
     background-color: darkslategray;
+}
+#commands{
+    position: relative;
+    z-index: 1;
 }
