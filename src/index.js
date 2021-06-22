@@ -34,7 +34,7 @@ new Vue({
             {
                 id: 'twitch-embed',
                 isPip: false,
-                url: 'https://player.twitch.tv/?channel=fefelxgg&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=fefegg&parent=traskin.github.io&parent=owl-buvette.test'
             },
             {
                 id: 'youtube-embed',
