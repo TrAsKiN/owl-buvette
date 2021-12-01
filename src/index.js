@@ -120,6 +120,12 @@ new Vue({
                 name: 'Contenders Trials EU',
                 disabled: false,
                 url: 'https://www.youtube.com/embed/live_stream?channel=UCLj0Gz2FQKDyCWE5gk4iO_A&autoplay=1'
+            },
+            {
+                hash: '#an4rchy',
+                name: 'Retour des Héros',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=an4rchy&parent=traskin.github.io&parent=owl-buvette.test'
             }
         ],
         flipX: false,
