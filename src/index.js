@@ -125,7 +125,7 @@ new Vue({
                 hash: '#an4rchy',
                 name: 'Retour des Héros',
                 disabled: false,
-                url: 'https://player.twitch.tv/?channel=an4rchy&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=an4rchy_ow&parent=traskin.github.io&parent=owl-buvette.test'
             }
         ],
         flipX: false,
