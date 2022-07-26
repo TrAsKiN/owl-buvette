@@ -9,11 +9,12 @@ Vue.component('player', {
     template: `
         <div
             v-show="(!isPip || (isPip && isActive))"
-            v-bind:class="(isPip ? 'pip' : '')"
+            v-bind:class="{pip: isPip}"
         >
             <iframe :src="url"></iframe>
         </div>
-    `
+    `,
+
 });
 
 Vue.component('link-cast', {
@@ -34,7 +35,7 @@ new Vue({
             {
                 id: 'twitch-embed',
                 isPip: false,
-                url: 'https://player.twitch.tv/?channel=fefegg&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=fefegg&parent=traskin.github.io&parent=localhost'
             },
             {
                 id: 'youtube-embed',
@@ -77,7 +78,7 @@ new Vue({
                 hash: '#overwatchTTV',
                 name: 'Overwatch TTV',
                 disabled: true,
-                url: 'https://player.twitch.tv/?channel=playoverwatch&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=playoverwatch&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#blizzardYT',
@@ -89,7 +90,7 @@ new Vue({
                 hash: '#blizzardTTV',
                 name: 'Blizzard TTV',
                 disabled: true,
-                url: 'https://player.twitch.tv/?channel=blizzard&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=blizzard&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#flashOPS',
@@ -107,13 +108,13 @@ new Vue({
                 hash: '#otpLoL',
                 name: 'OTP LoL',
                 disabled: true,
-                url: 'https://player.twitch.tv/?channel=otplol_&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=otplol_&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#steelSeries',
                 name: 'SteelSeries',
                 disabled: true,
-                url: 'https://player.twitch.tv/?channel=steelseries&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=steelseries&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#contendersTrials',
@@ -124,8 +125,56 @@ new Vue({
             {
                 hash: '#an4rchy',
                 name: 'Retour des Héros',
+                disabled: true,
+                url: 'https://player.twitch.tv/?channel=an4rchy_ow&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#benbest',
+                name: 'Team Peps - BenBest',
                 disabled: false,
-                url: 'https://player.twitch.tv/?channel=an4rchy_ow&parent=traskin.github.io&parent=owl-buvette.test'
+                url: 'https://player.twitch.tv/?channel=benbest_ow&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#weaq',
+                name: 'Team Peps - WeaQ',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=weaq_ow&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#tsuyo',
+                name: 'Team Peps - Tsuyo',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=tsuyo_ow2&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#logix',
+                name: 'Team Peps - Logix',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=logix&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#naga',
+                name: 'Team Peps - Naga',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=nagaow&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#fdgod',
+                name: 'Team Peps - FDGod',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=fdgod_ow&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#xerion',
+                name: 'Team Peps - Xerion',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=xeriongdh&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#khenail',
+                name: 'Team Peps - Khenail',
+                disabled: false,
+                url: 'https://player.twitch.tv/?channel=khenail&parent=traskin.github.io&parent=localhost'
             }
         ],
         flipX: false,
@@ -150,6 +199,7 @@ new Vue({
             this.players.forEach(function (player, index, array) {
                 array[index].isPip = !player.isPip;
             });
+            console.log(document.querySelector('.pip'));
         },
         reloadPlayers: function () {
             document.querySelectorAll('#players iframe').forEach(player => player.src += '');

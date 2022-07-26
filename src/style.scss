@@ -20,6 +20,9 @@ body{
         transition: transform 100ms ease-in-out;
         top: 0;
         left: 0;
+        &.fullscreen {
+            width: 21.5% !important;
+        }
     }
 }
 #youtube-embed, #twitch-embed{
@@ -33,6 +36,9 @@ body{
 .pip-bottom.pip-right .pip{
     @include media-breakpoint-up(md) {
         transform: translateY(calc(300% - 50px)) translateX(calc(300% - 15px));
+        &.fullscreen {
+            transform: translateY(calc(300% - 50px)) translateX(calc(365% - 15px)) !important;
+        }
     }
 }
 .pip-top.pip-right .pip{
