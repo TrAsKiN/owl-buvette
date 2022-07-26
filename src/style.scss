@@ -44,6 +44,9 @@ body{
 .pip-top.pip-right .pip{
     @include media-breakpoint-up(md) {
         transform: translateY(15px) translateX(calc(300% - 15px));
+        &.fullscreen {
+            transform: translateY(15px) translateX(calc(365% - 15px)) !important;
+        }
     }
 }
 .pip-bottom.pip-left .pip{
