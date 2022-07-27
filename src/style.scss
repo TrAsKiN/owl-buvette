@@ -1,8 +1,13 @@
+$primary: #f73f3d;
+$secondary: #f4cc2f;
+$text-muted: #ffba96;
+
 @import '~bootstrap';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 
 :root{
     --chat-width: 380px;
+    --bs-dark-rgb: 79, 90, 112;
 }
 body{
     &::-webkit-scrollbar {
