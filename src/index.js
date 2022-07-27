@@ -131,49 +131,49 @@ new Vue({
             {
                 hash: '#benbest',
                 name: 'Team Peps - BenBest',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=benbest_ow&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#weaq',
                 name: 'Team Peps - WeaQ',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=weaq_ow&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#tsuyo',
                 name: 'Team Peps - Tsuyo',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=tsuyo_ow2&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#logix',
                 name: 'Team Peps - Logix',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=logix&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#naga',
                 name: 'Team Peps - Naga',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=nagaow&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#fdgod',
                 name: 'Team Peps - FDGod',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=fdgod_ow&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#xerion',
                 name: 'Team Peps - Xerion',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=xeriongdh&parent=traskin.github.io&parent=localhost'
             },
             {
                 hash: '#khenail',
                 name: 'Team Peps - Khenail',
-                disabled: false,
+                disabled: true,
                 url: 'https://player.twitch.tv/?channel=khenail&parent=traskin.github.io&parent=localhost'
             }
         ],
