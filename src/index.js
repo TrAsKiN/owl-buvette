@@ -28,6 +28,17 @@ Vue.component('link-cast', {
     `
 });
 
+Vue.component('theme', {
+    props: ['hash', 'name', 'active'],
+    template: `
+      <li><a
+          v-bind:class="active"
+          :href="hash"
+          class="dropdown-item"
+      >{{ name }}</a></li>
+    `
+});
+
 new Vue({
     el: '#app',
     data: {
@@ -177,6 +188,23 @@ new Vue({
                 url: 'https://player.twitch.tv/?channel=khenail&parent=traskin.github.io&parent=localhost'
             }
         ],
+        themes: [
+            {
+                hash: '#dark',
+                name: 'Sombre',
+                disabled: false,
+            },
+            {
+                hash: '#light',
+                name: 'Lumineux',
+                disabled: false,
+            },
+            {
+                hash: '#peps',
+                name: 'Team Peps',
+                disabled: false,
+            },
+        ],
         flipX: false,
         flipY: false,
         pipActive: true,
@@ -199,14 +227,13 @@ new Vue({
             this.players.forEach(function (player, index, array) {
                 array[index].isPip = !player.isPip;
             });
-            console.log(document.querySelector('.pip'));
         },
         reloadPlayers: function () {
             document.querySelectorAll('#players iframe').forEach(player => player.src += '');
         },
         changeCast: function (event) {
-            if (document.querySelector('.dropdown-item.active')) {
-                document.querySelector('.dropdown-item.active').classList.remove('active');
+            if (document.querySelector('#casts .dropdown-item.active')) {
+                document.querySelector('#casts .dropdown-item.active').classList.remove('active');
             }
             const owlPlayer = document.querySelector('#youtube-embed iframe');
             let newCast;
@@ -216,13 +243,32 @@ new Vue({
                 newCast = window.location.hash;
             }
             owlPlayer.src = this.casts.find(cast => cast.hash === newCast).url;
-            document.querySelector('.dropdown-item[href="'+ newCast +'"]').classList.add('active');
+            document.querySelector('#casts .dropdown-item[href="'+ newCast +'"]').classList.add('active');
         },
         reloadChat: function () {
             document.querySelector('#chat').src += '';
-        }
+        },
+        switchTheme: function (event) {
+            if (event.target) {
+                event.preventDefault();
+                if (document.querySelector('#themes .dropdown-item.active')) {
+                    document.querySelector('#themes .dropdown-item.active').classList.remove('active');
+                }
+                localStorage.setItem('theme', event.target.hash);
+            }
+            document.querySelector('body').className = '';
+            document.querySelector('body').classList.add('theme-'+ localStorage.getItem('theme').substring(1));
+            if (document.querySelector('#themes .dropdown-item[href="'+ localStorage.getItem('theme') +'"]')) {
+                document.querySelector('#themes .dropdown-item[href="'+ localStorage.getItem('theme') +'"]').classList.add('active');
+            }
+        },
     },
     mounted: function () {
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', '#dark');
+        }
+        this.switchTheme(this);
+
         if (window.location.hash) {
             this.changeCast(this);
         }
