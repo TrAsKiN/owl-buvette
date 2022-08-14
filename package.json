@@ -1,6 +1,6 @@
 {
   "name": "owl-buvette",
-  "version": "2.0.14",
+  "version": "2.1.0",
   "description": "A multiple player for the OWL viewing parties by Féfé",
   "scripts": {
     "build": "webpack",
@@ -17,24 +17,24 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
-    "@octokit/rest": "^18.5.2",
-    "@popperjs/core": "^2.9.1",
-    "bootstrap": "^5.0.0",
-    "bootstrap-icons": "^1.4.1",
-    "vue": "^2.6.12"
+    "@octokit/rest": "^19.0.3",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.0",
+    "bootstrap-icons": "^1.9.1",
+    "vue": "^2.7.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.15",
-    "@babel/preset-env": "^7.13.15",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^5.2.2",
-    "css-minimizer-webpack-plugin": "^2.0.0",
-    "mini-css-extract-plugin": "^1.4.1",
-    "sass": "^1.32.10",
-    "sass-loader": "^11.0.1",
-    "style-loader": "^2.0.0",
-    "terser-webpack-plugin": "^5.1.1",
-    "webpack": "^5.24.4",
-    "webpack-cli": "^4.6.0"
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "sass": "^1.54.4",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
+    "terser-webpack-plugin": "^5.3.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

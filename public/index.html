@@ -8,92 +8,85 @@
     </head>
     <body>
         <div id="app">
-            <div id="display" class="row g-0 position-relative d-block d-md-flex">
-                <!--<div v-if="showChat" id="resizer" class="d-none d-md-block"></div>-->
-                <div
-                     class="col position-relative"
-                     id="players"
-                     v-bind:class="(this.flipX ? 'pip-left' : 'pip-right') + ' ' + (this.flipY ? 'pip-top' : 'pip-bottom')"
-                >
-                    <div class="row mx-0 px-0">
-                        <player
-                            v-for="player in players"
-                            v-bind:key="player.id"
-                            v-bind:url="player.url"
-                            v-bind:is-active="pipActive"
-                            v-bind:is-pip="player.isPip"
-                            v-bind:id="player.id"
-                            class="player ratio ratio-16x9 col-12 col-sm-6 col-md px-0"
-                            v-bind:class="{fullscreen: player.isPip && !showChat}"
-                        ></player>
-                    </div>
+            <div id="players"
+                v-bind:class="(this.flipX ? 'pip-left' : 'pip-right') + ' ' + (this.flipY ? 'pip-top' : 'pip-bottom')"
+            >
+                <player
+                    v-for="player in players"
+                    v-bind:key="player.id"
+                    v-bind:url="player.url"
+                    v-bind:is-active="pipActive"
+                    v-bind:is-pip="player.isPip"
+                    v-bind:id="player.id"
+                ></player>
+            </div>
+            <div id="chat" v-show="showChat">
+                <iframe src="https://www.twitch.tv/embed/fefegg/chat?darkpopout&parent=traskin.github.io&parent=localhost"></iframe>
+            </div>
+            <div class="commands text-center">
+                <button v-show="!aboveChat" @click="mirrorPip" type="button" class="btn btn-sm btn-link hide-on-mobile" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer à gauche ou à droite">
+                    <i class="bi bi-arrow-left-right"></i>
+                </button>
+                <button v-show="!aboveChat" @click="movePip" type="button" class="btn btn-sm btn-link hide-on-mobile" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer en haut ou en bas">
+                    <i class="bi bi-arrow-down-up"></i>
+                </button>
+                <button v-show="!aboveChat" @click="togglePip" type="button" class="btn btn-sm btn-link hide-on-mobile" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Activer/désactiver le lecteur">
+                    <i class="bi bi-eye"></i>
+                </button>
+                <button @click="switchPlayer" type="button" class="btn btn-sm btn-link hide-on-mobile" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inverser les deux lecteurs">
+                    <i class="bi bi-arrow-repeat"></i>
+                </button>
+                <button @click="reloadPlayers" type="button" class="btn btn-sm btn-link hide-on-mobile" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger les lecteurs">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <div class="btn-group dropup" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Changer la langue du cast">
+                    <button type="button" class="btn btn-sm btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-chat-dots"></i>
+                    </button>
+                    <ul id="casts" class="dropdown-menu">
+                        <link-cast
+                            @click.native="changeCast"
+                            v-if="!cast.disabled"
+                            v-for="(cast, index) in casts"
+                            v-bind:key="index"
+                            v-bind:hash="cast.hash"
+                            v-bind:name="cast.name"
+                            v-bind:active="(index === 0) ? 'active' : ''"
+                        ></link-cast>
+                    </ul>
                 </div>
-                <div v-show="showChat" class="col-md-auto col-12 col-chat">
-                    <div class="h-100">
-                        <iframe id="chat" class="w-100 h-100" src="https://www.twitch.tv/embed/fefegg/chat?darkpopout&parent=traskin.github.io&parent=localhost"></iframe>
-                    </div>
+                <div class="btn-group dropup" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Choix du thème">
+                    <button type="button" class="btn btn-sm btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-palette"></i>
+                    </button>
+                    <ul id="themes" class="dropdown-menu">
+                        <theme
+                            v-for="(theme, index) in themes"
+                            v-bind:key="index"
+                            v-bind:hash="theme.hash"
+                            v-bind:name="theme.name"
+                            v-if="!theme.disabled"
+                            @click.native="switchTheme"
+                        ></link-cast>
+                    </ul>
                 </div>
             </div>
-            <div id="commands" class="row no-gutters text-center mx-0 d-none d-md-flex">
-                <div class="col">
-                    <button @click="mirrorPip" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer à gauche ou à droite">
-                        <i class="bi bi-arrow-left-right"></i>
-                    </button>
-                    <button @click="movePip" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer en haut ou en bas">
-                        <i class="bi bi-arrow-down-up"></i>
-                    </button>
-                    <button @click="togglePip" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Activer/désactiver le lecteur">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                    <button @click="switchPlayer" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inverser les deux lecteurs">
-                        <i class="bi bi-arrow-repeat"></i>
-                    </button>
-                    <button @click="reloadPlayers" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger les lecteurs">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </button>
-                    <div class="btn-group dropup" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Changer la langue du cast">
-                        <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-chat-dots"></i>
-                        </button>
-                        <ul id="casts" class="dropdown-menu">
-                            <link-cast
-                                v-for="(cast, index) in casts"
-                                v-bind:key="index"
-                                v-bind:hash="cast.hash"
-                                v-bind:name="cast.name"
-                                v-if="!cast.disabled"
-                                v-bind:active="(index === 0) ? 'active' : ''"
-                                @click.native="changeCast"
-                            ></link-cast>
-                        </ul>
-                    </div>
-                    <div class="btn-group dropup" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Choix du thème">
-                        <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-palette"></i>
-                        </button>
-                        <ul id="themes" class="dropdown-menu">
-                            <theme
-                                v-for="(theme, index) in themes"
-                                v-bind:key="index"
-                                v-bind:hash="theme.hash"
-                                v-bind:name="theme.name"
-                                v-if="!theme.disabled"
-                                @click.native="switchTheme"
-                            ></link-cast>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-auto col-chat">
-                    <button v-show="showChat" @click="reloadChat" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger le chat">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </button>
-                    <button @click="toggleChat" type="button" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Basculer le chat">
-                        <i v-show="showChat" class="bi bi-arrow-bar-right"></i>
-                        <i v-show="!showChat" class="bi bi-arrow-bar-left"></i>
-                    </button>
-                </div>
+            <div class="commands text-center hide-on-mobile">
+                <button @click="moveAbove" v-show="showChat" type="button" class="btn btn-sm btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Déplacer au-dessus du chat">
+                    <i v-show="aboveChat" class="bi bi-box-arrow-left"></i>
+                    <i v-show="!aboveChat" class="bi bi-box-arrow-in-right"></i>
+                </button>
+                <button v-show="showChat" @click="reloadChat" type="button" class="btn btn-sm btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Recharger le chat">
+                    <i class="bi bi-arrow-clockwise"></i>
+                </button>
+                <button @click="toggleChat" type="button" class="btn btn-sm btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Basculer le chat">
+                    <i v-show="showChat" class="bi bi-arrow-bar-right"></i>
+                    <i v-show="!showChat" class="bi bi-arrow-bar-left"></i>
+                </button>
             </div>
-            <p class="text-center m-0">
+        </div>
+        <footer class="text-center">
+            <p class="m-0">
                 <small>
                     UI by <a href="https://twitter.com/notTrAsKiN" target="_blank">TrAsKiN</a>
                     &middot; Sources on <a href="https://github.com/TrAsKiN/owl-buvette" target="_blank">GitHub</a>
@@ -101,13 +94,15 @@
                     &middot; <a href="https://github.com/TrAsKiN/owl-buvette/issues/new" target="_blank">Report a bug</a>
                 </small>
             </p>
-        </div>
+        </footer>
         <script src="main.js"></script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY55XMJJLB"></script>
         <script>
+            window['ga-disable-G-CY55XMJJLB'] = true;
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            gtag('set', 'allow_google_signals', false);
             gtag('config', 'G-CY55XMJJLB');
         </script>
     </body>
