@@ -91,7 +91,7 @@
 }
 .theme-ldn {
     background-image: url('./images/LDN.png');
-    @include theme(#1C2B39, #58D4F7, #FF8200, 1);
+    @include theme(#1C2B39, #58D4F7, #FF8200);
 }
 .theme-nye {
     background-image: url('./images/NYE.png');

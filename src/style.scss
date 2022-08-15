@@ -53,7 +53,6 @@ iframe {
     }
 }
 #players {
-    height: calc(var(--player-width) * 9 / 16);
     @include media-breakpoint-up(lg) {
         width: var(--player-width);
         height: calc(var(--player-width) * 9 / 16);
@@ -65,7 +64,9 @@ iframe {
     }
 }
 #chat {
-    height: calc(var(--player-width) * 9 / 16);
+    @include media-breakpoint-up(lg) {
+        height: calc(var(--player-width) * 9 / 16);
+    }
 }
 #players iframe {
     @include media-breakpoint-down(lg) {

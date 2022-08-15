@@ -323,7 +323,7 @@ new Vue({
             if (!this.showChat) {
                 document.querySelector(':root').style.setProperty('--chat-width', '0px');
             } else {
-                document.querySelector(':root').style.setProperty('--chat-width', '380px');
+                document.querySelector(':root').style.setProperty('--chat-width', '400px');
             }
             if (this.aboveChat) {
                 this.moveAbove();
