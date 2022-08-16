@@ -42,15 +42,16 @@
 }
 
 .theme-dark {
-    @include theme(#fff, #000, #ced4da);
+    @include theme(#495057, #000, #adb5bd);
 }
 
 .theme-light {
-    @include theme(#212529, #f8f9fa, #343a40, 1);
+    @include theme(#adb5bd, #f8f9fa, #343a40, 1);
 }
 
 .theme-peps {
-    @include theme(#ffba96, #4f5a70, #f4cc2f);
+    background-image: url('./images/PEPS.png');
+    @include theme(#BF6545, #83818C, #F2BE22);
 }
 
 .theme-atl {
