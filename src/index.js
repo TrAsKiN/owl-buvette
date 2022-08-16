@@ -320,11 +320,11 @@ new Vue({
             this.showChat = !this.showChat;
             localStorage.setItem('showChat', this.showChat);
             document.querySelector('html').classList.toggle('fullscreen');
-            if (!this.showChat) {
-                document.querySelector(':root').style.setProperty('--chat-width', '0px');
-            } else {
-                document.querySelector(':root').style.setProperty('--chat-width', '400px');
-            }
+            // if (!this.showChat) {
+            //     document.querySelector(':root').style.setProperty('--chat-width', '0px');
+            // } else {
+            //     document.querySelector(':root').style.setProperty('--chat-width', '400px');
+            // }
             if (this.aboveChat) {
                 this.moveAbove();
             }

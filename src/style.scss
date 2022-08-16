@@ -6,13 +6,21 @@
     --bs-link-color: var(--bs-body-bg);
     --chat-width: 400px;
     --player-width: calc(100vw - var(--chat-width));
+    --player-height: calc(var(--player-width) * 9 / 16);
     --pip-width: calc(var(--player-width) * 0.25);
+    --pip-height-above-chat: calc(var(--chat-width) * 9 / 16);
+    &.fullscreen {
+        --player-width: 100vw;
+    }
 }
 .btn {
     --bs-btn-focus-box-shadow: none;
 }
 .btn-link {
     backdrop-filter: blur(5px);
+}
+.tooltip {
+    padding-bottom: 0;
 }
 
 .dropdown-menu {
@@ -42,9 +50,9 @@ iframe {
 #app {
     display: grid;
     grid-template-columns: 1fr var(--chat-width);
-    .fullscreen & {
-        grid-template-columns: 100vw;
-    }
+    // .fullscreen & {
+    //     grid-template-columns: 100vw;
+    // }
     @include media-breakpoint-down(lg) {
         grid-template-columns: none;
     }
@@ -55,8 +63,11 @@ iframe {
 #players {
     @include media-breakpoint-up(lg) {
         width: var(--player-width);
-        height: calc(var(--player-width) * 9 / 16);
+        height: var(--player-height);
         max-height: 100vh;
+        .fullscreen & {
+            grid-column: 1 / 3;
+        }
     }
     @include media-breakpoint-down(lg) {
         line-height: 0;
@@ -65,7 +76,7 @@ iframe {
 }
 #chat {
     @include media-breakpoint-up(lg) {
-        height: calc(var(--player-width) * 9 / 16);
+        height: var(--player-height);
     }
 }
 #players iframe {
@@ -86,15 +97,18 @@ iframe {
 }
 .above #chat iframe {
     @include media-breakpoint-up(lg) {
-        margin-top: calc(var(--chat-width) * 9 / 16);
-        height: calc(100% - calc(var(--chat-width) * 9 / 16));
+        margin-top: var(--pip-height-above-chat);
+        height: calc(100% - var(--pip-height-above-chat));
     }
 }
 .commands {
     margin-top: .5rem;
-}
-.fullscreen .commands {
-    grid-column: 1/2;
+    @include media-breakpoint-up(lg) {
+        grid-column: 1;
+        &+& {
+            grid-column: 2;
+        }
+    }
 }
 
 .hide-on-mobile {
