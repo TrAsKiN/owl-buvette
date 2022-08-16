@@ -20,6 +20,7 @@
     backdrop-filter: blur(5px);
 }
 .tooltip {
+    --bs-tooltip-max-width: 300px;
     padding-bottom: 0;
 }
 
