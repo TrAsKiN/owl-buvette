@@ -15,6 +15,7 @@
 }
 .btn {
     --bs-btn-focus-box-shadow: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .1);
 }
 .btn-link {
     backdrop-filter: blur(5px);
@@ -30,6 +31,7 @@
     --bs-dropdown-link-color: var(--bs-link-color);
     --bs-dropdown-link-hover-bg: var(--dropdown-link-hover-bg);
     --bs-dropdown-link-hover-color: var(--bs-link-hover-color);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, .25);
 }
 
 body {
@@ -38,10 +40,12 @@ body {
     }
     -ms-overflow-style: none;
     scrollbar-width: none;
-    background-position: center 18%;
+    background-position: center bottom -22%;
     background-size: contain;
+    background-repeat: no-repeat;
     backdrop-filter: blur(4px);
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
 }
 iframe {
     width: 100%;
@@ -74,36 +78,37 @@ iframe {
         line-height: 0;
         grid-template-columns: 50vw 50vw;
     }
+    & iframe {
+        @include media-breakpoint-down(lg) {
+            width: 50vw;
+            height: calc(50vw * 9 / 16);
+        }
+        @include media-breakpoint-down(sm) {
+            width: 100vw;
+            height: calc(100vw * 9 / 16);
+        }
+    }
 }
 #chat {
     @include media-breakpoint-up(lg) {
         height: var(--player-height);
     }
-}
-#players iframe {
-    @include media-breakpoint-down(lg) {
-        width: 50vw;
-        height: calc(50vw * 9 / 16);
+    & iframe {
+        @include media-breakpoint-down(lg) {
+            width: 100vw;
+            height: 100vh;
+        }
     }
-    @include media-breakpoint-down(sm) {
-        width: 100vw;
-        height: calc(100vw * 9 / 16);
-    }
-}
-#chat iframe {
-    @include media-breakpoint-down(lg) {
-        width: 100vw;
-        height: 100vh;
+    .above & iframe {
+        @include media-breakpoint-up(lg) {
+            margin-top: var(--pip-height-above-chat);
+            height: calc(100% - var(--pip-height-above-chat));
+        }
     }
 }
-.above #chat iframe {
-    @include media-breakpoint-up(lg) {
-        margin-top: var(--pip-height-above-chat);
-        height: calc(100% - var(--pip-height-above-chat));
-    }
-}
+
 .commands {
-    margin-top: .5rem;
+    margin-top: .4rem;
     @include media-breakpoint-up(lg) {
         grid-column: 1;
         &+& {
@@ -128,14 +133,14 @@ iframe {
         left: 0;
         transition: transform 100ms ease-in-out;
     }
-}
-.above .pip {
-    @include media-breakpoint-up(lg) {
-        left: auto;
-        right: 0;
-        transform: none !important;
-        width: var(--chat-width);
-        height: calc(var(--chat-width) * 9 / 16);
+    .above & {
+        @include media-breakpoint-up(lg) {
+            left: auto;
+            right: 0;
+            transform: none !important;
+            width: var(--chat-width);
+            height: calc(var(--chat-width) * 9 / 16);
+        }
     }
 }
 :not(.above) .pip-bottom.pip-right .pip {
