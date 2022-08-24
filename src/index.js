@@ -178,6 +178,12 @@ new Vue({
                 name: 'Team Peps - Khenail',
                 disabled: true,
                 url: 'https://player.twitch.tv/?channel=khenail&parent=traskin.github.io&parent=localhost'
+            },
+            {
+                hash: '#fefe',
+                name: 'Féfé YT',
+                disabled: false,
+                url: 'https://www.youtube.com/embed/live_stream?channel=UCcrtW1kHXYDdIAAMkzeXFbg&autoplay=1'
             }
         ],
         themes: [
