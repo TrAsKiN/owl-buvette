@@ -1,4 +1,4 @@
-import { Tooltip } from 'bootstrap/dist/js/bootstrap';
+import { Tooltip, Popover } from 'bootstrap/dist/js/bootstrap';
 import { Octokit } from "@octokit/rest";
 import Vue from "vue";
 
@@ -182,7 +182,7 @@ new Vue({
             {
                 hash: '#fefe',
                 name: 'Féfé YT',
-                disabled: false,
+                disabled: true,
                 url: 'https://www.youtube.com/embed/live_stream?channel=UCcrtW1kHXYDdIAAMkzeXFbg&autoplay=1'
             }
         ],
@@ -424,6 +424,14 @@ new Vue({
                 animation: false,
                 trigger: 'hover'
             });
+        });
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        [...popoverTriggerList].map(popoverTriggerEl => new Popover(popoverTriggerEl, {
+            html: true,
+            container: 'body'
+        }));
+        const popover = new Popover('.popover-dismiss', {
+            trigger: 'focus'
         });
 
         const octokit = new Octokit();

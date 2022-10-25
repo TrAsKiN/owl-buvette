@@ -18,6 +18,7 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, .1);
 }
 .btn-link {
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
 .tooltip {
@@ -33,6 +34,17 @@
     --bs-dropdown-link-hover-color: var(--bs-link-hover-color);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, .25);
 }
+[data-bs-toggle="popover"] {
+    cursor: help;
+}
+.popover {
+    --bs-popover-bg: rgba(13, 202, 240, .75);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+}
+.popover a:hover {
+    text-decoration: underline !important;
+}
 
 body {
     &::-webkit-scrollbar {
@@ -43,6 +55,7 @@ body {
     background-position: center bottom -22%;
     background-size: contain;
     background-repeat: no-repeat;
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     height: 100%;
     min-height: 100vh;
