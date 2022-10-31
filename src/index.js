@@ -337,7 +337,6 @@ new Vue({
                     localStorage.setItem('pip', player.id);
                 }
             });
-            console.log(localStorage.getItem('pip'));
         },
         reloadPlayers: function () {
             document.querySelectorAll('#players iframe').forEach(player => player.src += '');
@@ -430,15 +429,12 @@ new Vue({
             html: true,
             container: 'body'
         }));
-        const popover = new Popover('.popover-dismiss', {
-            trigger: 'focus'
-        });
 
         const octokit = new Octokit();
         octokit.repos
             .getLatestRelease({
                 owner: 'TrAsKiN',
-                repo: 'owl-buvette',
+                repo: 'owl-buvette'
             })
             .then(({ data }) => {
                 document.querySelector('#version').innerHTML = data.tag_name;
