@@ -165,7 +165,6 @@ iframe {
     }
 }
 :not(.above) .pip-top.pip-right .pip {
-    transition: transform 100ms ease-in-out;
     @include media-breakpoint-up(lg) {
         transform: translateY(15px) translateX(calc(300% - 15px));
         .fullscreen & {
@@ -174,13 +173,14 @@ iframe {
     }
 }
 :not(.above) .pip-bottom.pip-left .pip {
-    transition: transform 100ms ease-in-out;
     @include media-breakpoint-up(lg) {
         transform: translateY(calc(300% - 50px)) translateX(15px);
+        .fullscreen & {
+            transform: translateY(calc(240% - 50px)) translateX(15px);
+        }
     }
 }
 :not(.above) .pip-top.pip-left .pip {
-    transition: transform 100ms ease-in-out;
     @include media-breakpoint-up(lg) {
         transform: translateY(15px) translateX(15px);
     }
