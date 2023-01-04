@@ -1,61 +1,25 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
+const Encore = require('@symfony/webpack-encore')
 
-module.exports = {
-    mode: 'production',
-    entry: './src/index.js',
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'docs')
-    },
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: './'
-                        }
-                    },
-                    'css-loader',
-                    'sass-loader'
-                ],
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource'
-            },
-            {
-                test: /\.m?js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
-            },
-        ]
-    },
-    optimization: {
-        minimize: true,
-        minimizer: [
-            new CssMinimizerPlugin(),
-        ]
-    },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: 'main.css'
-        }),
-        new TerserPlugin()
-    ],
-    resolve: {
-        alias: {
-            'vue$': 'vue/dist/vue.esm.js'
-        }
-    }
-};
+if (!Encore.isRuntimeEnvironmentConfigured()) {
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev')
+}
+
+Encore
+    .setOutputPath('docs/build/')
+    // .copyFiles({
+    //     from: './assets/images',
+    //     to: 'images/[path][name].[hash:8].[ext]',
+    //     pattern: /\.(png|jpg|jpeg)$/
+    // })
+    .setPublicPath('/build')
+    .addEntry('app', './src/App.jsx')
+    .enableSingleRuntimeChunk()
+    .cleanupOutputBeforeBuild()
+    .enableBuildNotifications()
+    .enableSourceMaps(!Encore.isProduction())
+    // .enableVersioning(Encore.isProduction())
+    .enableSassLoader()
+    .enableReactPreset()
+    .enableIntegrityHashes(Encore.isProduction())
+
+module.exports = Encore.getWebpackConfig()

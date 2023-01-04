@@ -1,0 +1,26 @@
+import React, { Component } from 'react'
+import { Tooltip } from 'bootstrap/dist/js/bootstrap'
+
+export class ChatCommands extends Component
+{
+    componentDidMount() {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl, {
+            placement: 'bottom',
+            fallbackPlacements: ['bottom'],
+            animation: false,
+            trigger: 'hover'
+        }))
+    }
+
+    render() {
+        return <div className="commands text-center hide-on-mobile">
+            {this.props.showChat ? <button onClick={this.props.handleAboveChat} type="button" className="btn btn-sm btn-link mx-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Placer/enlever au-dessus du chat">
+                {this.props.aboveChat ? <i className="bi bi-box-arrow-left"></i> : <i className="bi bi-box-arrow-in-right"></i>}
+            </button> : <></>}
+            <button onClick={this.props.handleShowChat} type="button" className="btn btn-sm btn-link mx-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Basculer le chat">
+                {this.props.showChat ? <i className="bi bi-arrow-bar-right"></i> : <i className="bi bi-arrow-bar-left"></i>}
+            </button>
+        </div>
+    }
+}

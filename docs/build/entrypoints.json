@@ -1,0 +1,18 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app.css"
+      ]
+    }
+  },
+  "integrity": {
+    "/build/runtime.js": "sha384-XFyH0Y6+k28QUC+uhoh5LfblpnL1M5I/ndgkJmfE/cV5R06muONuPoi7Cqs8dkl/",
+    "/build/app.js": "sha384-o/+qQY6gh7JzJzzmx6YkCtbLcjb9Lxm2/aHnK+IJZRRZtsNNFnPTQBDI/0g7vAev",
+    "/build/app.css": "sha384-V6cXq1fsL8zWT0+o0Qi559ixnklN9iJVt2iZ2HJp/SjwjzbBPfouERzkTX1w5oSK"
+  }
+}
