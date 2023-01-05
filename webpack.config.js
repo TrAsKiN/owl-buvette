@@ -6,20 +6,24 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     .setOutputPath('docs/build/')
-    // .copyFiles({
-    //     from: './assets/images',
-    //     to: 'images/[path][name].[hash:8].[ext]',
-    //     pattern: /\.(png|jpg|jpeg)$/
-    // })
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[hash:8].[ext]',
+        pattern: /\.(png|jpg|jpeg)$/
+    })
     .setPublicPath('/build')
     .addEntry('app', './src/App.jsx')
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
-    // .enableVersioning(Encore.isProduction())
     .enableSassLoader()
     .enableReactPreset()
     .enableIntegrityHashes(Encore.isProduction())
+
+if (Encore.isProduction()) {
+    Encore.setPublicPath('https://traskin.github.io/owl-buvette/build/')
+    Encore.setManifestKeyPrefix('build/')
+}
 
 module.exports = Encore.getWebpackConfig()
