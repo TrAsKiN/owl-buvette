@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>La Buvette by Féfé (UI by TrAsKiN)</title>
+        <script type="module" defer>
+            const response = await fetch('build/entrypoints.json')
+            const json = await response.json()
+            const entrypoint = json.entrypoints['app']
+            for (const file of entrypoint.css) {
+                const link = document.createElement('link')
+                link.rel = 'stylesheet'
+                link.href = file
+                link.integrity = json.integrity[file]
+                document.head.appendChild(link)
+            }
+            for (const file of entrypoint.js) {
+                const script = document.createElement('script')
+                script.src = file
+                script.integrity = json.integrity[file]
+                document.head.appendChild(script)
+            }
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
