@@ -1,12 +1,13 @@
 {
   "name": "owl-buvette",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A multiple player for the OWL viewing parties by Féfé",
   "scripts": {
     "dev-server": "encore dev-server",
     "dev": "encore dev",
     "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "build": "encore production --progress",
+    "fix": "npx standard --fix 'src/**/*.jsx'"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,7 @@
     "file-loader": "^6.2.0",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
+    "standard": "^17.0.0",
     "webpack-notifier": "^1.15.0"
   }
 }

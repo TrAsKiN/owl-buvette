@@ -1,117 +1,117 @@
 [
-    {
-        "hash": "#dark",
-        "name": "Sombre",
-        "disabled": false
-    },
-    {
-        "hash": "#light",
-        "name": "Lumineux",
-        "disabled": false
-    },
-    {
-        "hash": "#peps",
-        "name": "Team Peps",
-        "disabled": false
-    },
-    {
-        "hash": "#atl",
-        "name": "Atlanta Reign",
-        "disabled": false
-    },
-    {
-        "hash": "#bos",
-        "name": "Boston Uprising",
-        "disabled": false
-    },
-    {
-        "hash": "#cdh",
-        "name": "Chengdu Hunters",
-        "disabled": false
-    },
-    {
-        "hash": "#dal",
-        "name": "Dallas Fuel",
-        "disabled": false
-    },
-    {
-        "hash": "#fla",
-        "name": "Florida Mayhem",
-        "disabled": false
-    },
-    {
-        "hash": "#gla",
-        "name": "Los Angeles Gladiators",
-        "disabled": false
-    },
-    {
-        "hash": "#gzc",
-        "name": "Guangzhou Charge",
-        "disabled": false
-    },
-    {
-        "hash": "#hou",
-        "name": "Houston Outlaws",
-        "disabled": false
-    },
-    {
-        "hash": "#hzs",
-        "name": "Hangzhou Spark",
-        "disabled": false
-    },
-    {
-        "hash": "#ldn",
-        "name": "London Spitfire",
-        "disabled": false
-    },
-    {
-        "hash": "#nye",
-        "name": "New York Excelsior",
-        "disabled": false
-    },
-    {
-        "hash": "#par",
-        "name": "Paris Eternal",
-        "disabled": false
-    },
-    {
-        "hash": "#phi",
-        "name": "Philadelphia Fusion",
-        "disabled": false
-    },
-    {
-        "hash": "#seo",
-        "name": "Seoul Dynasty",
-        "disabled": false
-    },
-    {
-        "hash": "#sfs",
-        "name": "San Francisco Shock",
-        "disabled": false
-    },
-    {
-        "hash": "#shd",
-        "name": "Shanghai Dragons",
-        "disabled": false
-    },
-    {
-        "hash": "#tor",
-        "name": "Toronto Defiant",
-        "disabled": false
-    },
-    {
-        "hash": "#val",
-        "name": "Los Angeles Valiant",
-        "disabled": false
-    },
-    {
-        "hash": "#van",
-        "name": "Vancouver Titans",
-        "disabled": false
-    },
-    {
-        "hash": "#was",
-        "name": "Washington Justice",
-        "disabled": false
-    }
+  {
+    "hash": "#dark",
+    "name": "Sombre",
+    "disabled": false
+  },
+  {
+    "hash": "#light",
+    "name": "Lumineux",
+    "disabled": false
+  },
+  {
+    "hash": "#peps",
+    "name": "Team Peps",
+    "disabled": false
+  },
+  {
+    "hash": "#atl",
+    "name": "Atlanta Reign",
+    "disabled": false
+  },
+  {
+    "hash": "#bos",
+    "name": "Boston Uprising",
+    "disabled": false
+  },
+  {
+    "hash": "#cdh",
+    "name": "Chengdu Hunters",
+    "disabled": false
+  },
+  {
+    "hash": "#dal",
+    "name": "Dallas Fuel",
+    "disabled": false
+  },
+  {
+    "hash": "#fla",
+    "name": "Florida Mayhem",
+    "disabled": false
+  },
+  {
+    "hash": "#gla",
+    "name": "Los Angeles Gladiators",
+    "disabled": false
+  },
+  {
+    "hash": "#gzc",
+    "name": "Guangzhou Charge",
+    "disabled": false
+  },
+  {
+    "hash": "#hou",
+    "name": "Houston Outlaws",
+    "disabled": false
+  },
+  {
+    "hash": "#hzs",
+    "name": "Hangzhou Spark",
+    "disabled": false
+  },
+  {
+    "hash": "#ldn",
+    "name": "London Spitfire",
+    "disabled": false
+  },
+  {
+    "hash": "#nye",
+    "name": "New York Excelsior",
+    "disabled": false
+  },
+  {
+    "hash": "#par",
+    "name": "Paris Eternal",
+    "disabled": false
+  },
+  {
+    "hash": "#phi",
+    "name": "Philadelphia Fusion",
+    "disabled": false
+  },
+  {
+    "hash": "#seo",
+    "name": "Seoul Dynasty",
+    "disabled": false
+  },
+  {
+    "hash": "#sfs",
+    "name": "San Francisco Shock",
+    "disabled": false
+  },
+  {
+    "hash": "#shd",
+    "name": "Shanghai Dragons",
+    "disabled": false
+  },
+  {
+    "hash": "#tor",
+    "name": "Toronto Defiant",
+    "disabled": false
+  },
+  {
+    "hash": "#val",
+    "name": "Los Angeles Valiant",
+    "disabled": false
+  },
+  {
+    "hash": "#van",
+    "name": "Vancouver Titans",
+    "disabled": false
+  },
+  {
+    "hash": "#was",
+    "name": "Washington Justice",
+    "disabled": false
+  }
 ]
