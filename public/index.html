@@ -12,13 +12,17 @@
                 const link = document.createElement('link')
                 link.rel = 'stylesheet'
                 link.href = file
-                link.integrity = json.integrity[file]
+                if (json.integrity !== undefined) {
+                    link.integrity = json.integrity[file]
+                }
                 document.head.appendChild(link)
             }
             for (const file of entrypoint.js) {
                 const script = document.createElement('script')
                 script.src = file
-                script.integrity = json.integrity[file]
+                if (json.integrity !== undefined) {
+                    script.integrity = json.integrity[file]
+                }
                 document.head.appendChild(script)
             }
         </script>
