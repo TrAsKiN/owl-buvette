@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import { Player } from './Player'
-
 export class Players extends Component {
   render () {
     const pipClass = []
@@ -20,9 +18,7 @@ export class Players extends Component {
 
     return (
       <div id='players' className={pipClass.join(' ')}>
-        {this.props.players.map(player =>
-          <Player key={player.id} id={player.id} url={player.url} isPip={player.isPip} isActive={this.props.pipActive} flipX={this.props.flipX} flipY={this.props.flipY} />
-        )}
+        {this.props.children}
       </div>
     )
   }

@@ -13,23 +13,25 @@ export class PlayersCommands extends Component {
   }
 
   render () {
+    const hidedPipClasses = [
+      'btn',
+      'btn-sm',
+      'btn-link',
+      'hide-on-mobile',
+      'mx-1',
+      this.props.aboveChat ? 'd-none' : ''
+    ]
     return (
       <div className='commands text-center'>
-        {this.props.aboveChat
-          ? null
-          : (
-            <>
-              <button onClick={this.props.handleFlipX} type='button' className='btn btn-sm btn-link hide-on-mobile mx-1' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Placer à gauche ou à droite'>
-                <i className='bi bi-arrow-left-right' />
-              </button>
-              <button onClick={this.props.handleFlipY} type='button' className='btn btn-sm btn-link hide-on-mobile mx-1' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Placer en haut ou en bas'>
-                <i className='bi bi-arrow-down-up' />
-              </button>
-              <button onClick={this.props.handlePipActive} type='button' className='btn btn-sm btn-link hide-on-mobile mx-1' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Activer/désactiver le lecteur'>
-                <i className='bi bi-eye' />
-              </button>
-            </>
-            )}
+        <button onClick={this.props.handleFlipX} type='button' className={hidedPipClasses.join(' ')} data-bs-toggle='tooltip' data-bs-placement='bottom' title='Placer à gauche ou à droite'>
+          <i className='bi bi-arrow-left-right' />
+        </button>
+        <button onClick={this.props.handleFlipY} type='button' className={hidedPipClasses.join(' ')} data-bs-toggle='tooltip' data-bs-placement='bottom' title='Placer en haut ou en bas'>
+          <i className='bi bi-arrow-down-up' />
+        </button>
+        <button onClick={this.props.handlePipActive} type='button' className={hidedPipClasses.join(' ')} data-bs-toggle='tooltip' data-bs-placement='bottom' title='Activer/désactiver le lecteur'>
+          <i className='bi bi-eye' />
+        </button>
         <button onClick={this.props.handleSwitchPlayer} type='button' className='btn btn-sm btn-link hide-on-mobile mx-1' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Inverser les deux lecteurs'>
           <i className='bi bi-arrow-repeat' />
         </button>

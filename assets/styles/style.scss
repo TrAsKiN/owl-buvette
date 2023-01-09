@@ -144,7 +144,6 @@ iframe {
         position: absolute;
         top: 0;
         left: 0;
-        transition: transform 100ms ease-in-out;
     }
     .above & {
         @include media-breakpoint-up(lg) {
@@ -154,6 +153,9 @@ iframe {
             width: var(--chat-width);
             height: calc(var(--chat-width) * 9 / 16);
         }
+    }
+    &.animate {
+        transition: transform 100ms ease-in-out;
     }
 }
 :not(.above) .pip-bottom.pip-right .pip {

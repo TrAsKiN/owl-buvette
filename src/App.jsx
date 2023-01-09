@@ -5,6 +5,7 @@ import '../assets/styles/style.scss'
 
 import { Footer } from './Footer'
 import { Players } from './Players'
+import { Player } from './Player'
 import { Chat } from './Chat'
 import { PlayersCommands } from './PlayersCommands'
 import { ChatCommands } from './ChatCommands'
@@ -55,7 +56,18 @@ class App extends Component {
     }
   }
 
+  applyAnimation () {
+    const pip = document.querySelector('.pip')
+    pip.classList.add('animate')
+    const listener = () => {
+      pip.classList.remove('animate')
+      pip.removeEventListener('animationend', listener)
+    }
+    pip.addEventListener('animationend', listener)
+  }
+
   handleFlipX () {
+    this.applyAnimation()
     localStorage.setItem('flipX', !this.state.flipX)
     this.setState((state) => ({
       flipX: !state.flipX
@@ -63,6 +75,7 @@ class App extends Component {
   }
 
   handleFlipY () {
+    this.applyAnimation()
     localStorage.setItem('flipY', !this.state.flipY)
     this.setState((state) => ({
       flipY: !state.flipY
@@ -70,6 +83,9 @@ class App extends Component {
   }
 
   handlePipActive () {
+    if (this.state.aboveChat) {
+      this.handleAboveChat()
+    }
     localStorage.setItem('pipActive', !this.state.pipActive)
     this.setState((state) => ({
       pipActive: !state.pipActive
@@ -148,32 +164,36 @@ class App extends Component {
       <>
         <div id='app'>
           <Players
-            players={this.state.players}
             flipX={this.state.flipX}
             flipY={this.state.flipY}
-            pipActive={this.state.pipActive}
-          />
+          >
+            {this.state.players.map(player =>
+              <Player key={player.id} id={player.id} url={player.url} isPip={player.isPip} isActive={this.state.pipActive} />
+            )}
+          </Players>
           <Chat
             channel={this.props.channel}
             showChat={this.state.showChat}
             aboveChat={this.state.aboveChat}
           />
           <PlayersCommands
-            casts={this.state.casts}
-            themes={this.state.themes}
             aboveChat={this.state.aboveChat}
+            casts={this.state.casts}
+            handleChangeCast={this.handleChangeCast.bind(this)}
+            themes={this.state.themes}
+            handleSwitchTheme={this.handleSwitchTheme.bind(this)}
             handleFlipX={this.handleFlipX.bind(this)}
             handleFlipY={this.handleFlipY.bind(this)}
             handlePipActive={this.handlePipActive.bind(this)}
             handleSwitchPlayer={this.handleSwitchPlayer.bind(this)}
-            handleChangeCast={this.handleChangeCast.bind(this)}
-            handleSwitchTheme={this.handleSwitchTheme.bind(this)}
           />
           <ChatCommands
             showChat={this.state.showChat}
+            handleShowChat={this.handleShowChat.bind(this)}
             aboveChat={this.state.aboveChat}
             handleAboveChat={this.handleAboveChat.bind(this)}
-            handleShowChat={this.handleShowChat.bind(this)}
+            pipActive={this.state.pipActive}
+            handlePipActive={this.handlePipActive.bind(this)}
           />
         </div>
         <Footer />
