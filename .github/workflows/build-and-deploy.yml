@@ -7,19 +7,6 @@ permissions:
   contents: write
 jobs:
   build:
-    inputs:
-      name:
-        description: 'Artifact name'
-        required: false
-        default: 'github-pages'
-      path:
-        description: "Path of the directory containing the static assets."
-        required: true
-        default: "public/"
-      retention-days:
-        description: "Duration after which artifact will expire in days."
-        required: false
-        default: "1"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,13 +29,12 @@ jobs:
             --exclude=.github \
             .
         env:
-          INPUT_PATH: ${{ inputs.path }}
+          INPUT_PATH: public/
       - name: Upload artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@main
         with:
-          name: ${{ inputs.name }}
+          name: github-pages
           path: ${{ runner.temp }}/artifact.tar
-          retention-days: ${{ inputs.retention-days }}
   deploy:
     needs: build
     permissions:
