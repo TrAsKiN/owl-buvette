@@ -1,10 +1,4 @@
 name: Build and Deploy
-on:
-  push:
-    branches:
-      - master
-permissions:
-  contents: write
 inputs:
   name:
     description: 'Artifact name'
@@ -18,6 +12,12 @@ inputs:
     description: "Duration after which artifact will expire in days."
     required: false
     default: "1"
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
         env:
           INPUT_PATH: ${{ inputs.path }}
       - name: Upload artifact
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@master
         with:
           name: ${{ inputs.name }}
           path: ${{ runner.temp }}/artifact.tar
