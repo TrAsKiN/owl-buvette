@@ -7,8 +7,8 @@
         <script type="module" defer>
             const response = await fetch('build/entrypoints.json')
             const json = await response.json()
-            const entrypoint = json.entrypoints['app']
-            for (const file of entrypoint.css) {
+            const entrypoints = json.entrypoints['app']
+            for (const file of entrypoints.css) {
                 const link = document.createElement('link')
                 link.rel = 'stylesheet'
                 link.href = file
@@ -17,7 +17,7 @@
                 }
                 document.head.appendChild(link)
             }
-            for (const file of entrypoint.js) {
+            for (const file of entrypoints.js) {
                 const script = document.createElement('script')
                 script.src = file
                 if (json.integrity !== undefined) {

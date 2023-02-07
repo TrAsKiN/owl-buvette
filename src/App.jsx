@@ -9,11 +9,10 @@ import { Player } from './Player'
 import { Chat } from './Chat'
 import { PlayersCommands } from './PlayersCommands'
 import { ChatCommands } from './ChatCommands'
+import { ErrorBoundary } from './ErrorBoundary'
 
 import casts from './casts.json'
 import themes from './themes.json'
-
-const localStorage = window.localStorage
 
 class App extends Component {
   constructor (props) {
@@ -43,24 +42,24 @@ class App extends Component {
 
   componentDidMount () {
     if (localStorage.getItem('theme')) {
-      document.querySelector('body').classList.add('theme-' + localStorage.getItem('theme').substring(1))
-      document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]').classList.add('active')
+      document.querySelector('body')?.classList.add('theme-' + localStorage.getItem('theme').substring(1))
+      document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]')?.classList.add('active')
     } else {
-      document.querySelector('body').classList.add('theme-dark')
-      document.querySelector('#themes .dropdown-item[href="dark"]').classList.add('active')
+      document.querySelector('body')?.classList.add('theme-dark')
+      document.querySelector('#themes .dropdown-item[href="dark"]')?.classList.add('active')
     }
     if (window.location.hash) {
-      document.querySelector(`#casts .dropdown-item[href="${window.location.hash}"]`).classList.add('active')
+      document.querySelector(`#casts .dropdown-item[href="${window.location.hash}"]`)?.classList.add('active')
     } else {
-      document.querySelector('#casts .dropdown-item:first-child').classList.add('active')
+      document.querySelector('#casts .dropdown-item:first-child')?.classList.add('active')
     }
   }
 
   applyAnimation () {
     const pip = document.querySelector('.pip')
-    pip.classList.add('animate')
+    pip?.classList.add('animate')
     const listener = () => {
-      pip.classList.remove('animate')
+      pip?.classList.remove('animate')
       pip.removeEventListener('animationend', listener)
     }
     pip.addEventListener('animationend', listener)
@@ -125,39 +124,39 @@ class App extends Component {
 
   handleChangeCast (event) {
     if (document.querySelector('#casts .dropdown-item.active')) {
-      document.querySelector('#casts .dropdown-item.active').classList.remove('active')
+      document.querySelector('#casts .dropdown-item.active')?.classList.remove('active')
     }
     const newCast = event.target ? event.target.hash : window.location.hash
     document.querySelector('#cast').src = this.state.casts.find(cast => cast.hash === newCast).url
-    document.querySelector(`#casts .dropdown-item[href="${newCast}"]`).classList.add('active')
+    document.querySelector(`#casts .dropdown-item[href="${newCast}"]`)?.classList.add('active')
   }
 
   handleSwitchTheme (event) {
     event.preventDefault()
     if (event.target) {
       if (document.querySelector('#themes .dropdown-item.active')) {
-        document.querySelector('#themes .dropdown-item.active').classList.remove('active')
+        document.querySelector('#themes .dropdown-item.active')?.classList.remove('active')
       }
       localStorage.setItem('theme', event.target.hash)
     }
     document.querySelector('body').className = ''
-    document.querySelector('body').classList.add('theme-' + localStorage.getItem('theme').substring(1))
+    document.querySelector('body')?.classList.add('theme-' + localStorage.getItem('theme').substring(1))
     if (document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]')) {
-      document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]').classList.add('active')
+      document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]')?.classList.add('active')
     }
   }
 
   render () {
     if (this.state.aboveChat) {
-      document.querySelector('html').classList.add('above')
+      document.querySelector('html')?.classList.add('above')
     } else {
-      document.querySelector('html').classList.remove('above')
+      document.querySelector('html')?.classList.remove('above')
     }
 
     if (this.state.showChat) {
-      document.querySelector('html').classList.remove('fullscreen')
+      document.querySelector('html')?.classList.remove('fullscreen')
     } else {
-      document.querySelector('html').classList.add('fullscreen')
+      document.querySelector('html')?.classList.add('fullscreen')
     }
 
     return (
@@ -205,6 +204,8 @@ class App extends Component {
 const root = createRoot(document.querySelector('body'))
 root.render(
   <StrictMode>
-    <App channel='fefegg' />
+    <ErrorBoundary>
+      <App channel='fefegg' />
+    </ErrorBoundary>
   </StrictMode>
 )
