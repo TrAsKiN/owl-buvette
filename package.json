@@ -1,6 +1,6 @@
 {
   "name": "owl-buvette",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "description": "A multiple player for the OWL viewing parties by Féfé",
   "scripts": {
     "dev-server": "encore dev-server",
