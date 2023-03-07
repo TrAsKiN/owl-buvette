@@ -136,5 +136,11 @@
     "name": "Féfé YT",
     "disabled": true,
     "url": "https://www.youtube.com/embed/live_stream?channel=UCcrtW1kHXYDdIAAMkzeXFbg&autoplay=1"
+  },
+  {
+    "hash": "#contendersTwitch",
+    "name": "Contenders Twitch",
+    "disabled": false,
+    "url": "https://player.twitch.tv/?channel=overwatchcontenders&parent=traskin.github.io&parent=localhost"
   }
 ]

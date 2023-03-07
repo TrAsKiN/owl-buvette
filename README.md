@@ -1,5 +1,7 @@
 # OWL Buvette
 
+[![Build and Deploy](https://github.com/TrAsKiN/owl-buvette/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/TrAsKiN/owl-buvette/actions/workflows/build-and-deploy.yml)
+
 A multiple player for the OWL viewing parties by Féfé
 
 ## Build the project in the development environment
