@@ -40,7 +40,12 @@ export class PlayersCommands extends Component {
             <i className='bi bi-chat-dots' />
           </button>
           <ul id='casts' className='dropdown-menu'>
-            {this.props.casts.map((cast, index) => cast.disabled ? null : <li key={index}><a onClick={this.props.handleChangeCast} className='dropdown-item' href={cast.hash}>{cast.name}</a></li>)}
+            {
+              this.props.casts.map((cast, index) => {
+                const href = this.props.host ? `${cast.hash}&host=${this.props.host}` : `${cast.hash}`
+                return cast.disabled || <li key={index}><a onClick={this.props.handleChangeCast} className='dropdown-item' href={href}>{cast.name}</a></li>
+              })
+            }
           </ul>
         </div>
         <div className='btn-group dropup mx-1' data-bs-toggle='tooltip' data-bs-placement='bottom' title='Choix du thème'>

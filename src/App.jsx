@@ -17,19 +17,22 @@ import themes from './themes.json'
 class App extends Component {
   constructor (props) {
     super(props)
+    const host = document.location.hash.match(/host=(\w+)/)?.slice(1)
+    const castHash = document.location.hash.match(/#(\w+)/).slice(1)[0]
     this.state = {
       casts,
       themes,
+      host: host,
       players: [
         {
           id: 'host',
           isPip: localStorage.getItem('pip') === 'host',
-          url: `https://player.twitch.tv/?channel=${this.props.channel}&parent=traskin.github.io&parent=localhost`
+          url: `https://player.twitch.tv/?channel=${host ?? this.props.channel}&parent=traskin.github.io&parent=localhost`
         },
         {
           id: 'cast',
           isPip: localStorage.getItem('pip') !== 'host',
-          url: window.location.hash !== '' ? casts.find(cast => cast.hash === window.location.hash).url : casts.find(cast => cast.disabled !== true).url
+          url: castHash ? casts.find(cast => cast.hash === `#${castHash}`).url : casts.find(cast => cast.disabled !== true).url
         }
       ],
       flipX: localStorage.getItem('flipX') === 'true',
@@ -171,11 +174,13 @@ class App extends Component {
             )}
           </Players>
           <Chat
+            host={this.state.host}
             channel={this.props.channel}
             showChat={this.state.showChat}
             aboveChat={this.state.aboveChat}
           />
           <PlayersCommands
+            host={this.state.host}
             aboveChat={this.state.aboveChat}
             casts={this.state.casts}
             handleChangeCast={this.handleChangeCast.bind(this)}
