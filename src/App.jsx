@@ -18,7 +18,7 @@ class App extends Component {
   constructor (props) {
     super(props)
     const host = document.location.hash.match(/host=(\w+)/)?.slice(1)
-    const castHash = document.location.hash.match(/#(\w+)/).slice(1)[0]
+    const castHash = document.location.hash.match(/#(\w+)/)?.slice(1)[0]
     this.state = {
       casts,
       themes,
