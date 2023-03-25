@@ -1,17 +1,6 @@
 import React, { Component } from 'react'
-import { Tooltip } from 'bootstrap/dist/js/bootstrap'
 
 export class ChatCommands extends Component {
-  componentDidMount () {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    tooltipTriggerList.forEach(tooltipTriggerEl => new Tooltip(tooltipTriggerEl, {
-      placement: 'bottom',
-      fallbackPlacements: ['bottom'],
-      animation: false,
-      trigger: 'hover'
-    }))
-  }
-
   render () {
     const hidePipClasses = [
       'btn',

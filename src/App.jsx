@@ -1,4 +1,4 @@
-import React, { Component, StrictMode } from 'react'
+import React, { Component } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import '../assets/styles/style.scss'
@@ -17,8 +17,8 @@ import themes from './themes.json'
 class App extends Component {
   constructor (props) {
     super(props)
-    const host = document.location.hash.match(/host=(\w+)/)?.slice(1)
-    const castHash = document.location.hash.match(/#(\w+)/)?.slice(1)[0]
+    const host = window.location.hash.match(/host=(\w+)/)?.slice(1)[0]
+    const castHash = window.location.hash.match(/^(?!#host)(#\w+)/)?.slice(1)[0]
     this.state = {
       casts,
       themes,
@@ -27,12 +27,12 @@ class App extends Component {
         {
           id: 'host',
           isPip: localStorage.getItem('pip') === 'host',
-          url: `https://player.twitch.tv/?channel=${host ?? this.props.channel}&parent=traskin.github.io&parent=localhost`
+          url: `https://player.twitch.tv/?channel=${host ?? this.props.channel}&parent=${window.location.hostname}`
         },
         {
           id: 'cast',
           isPip: localStorage.getItem('pip') !== 'host',
-          url: castHash ? casts.find(cast => cast.hash === `#${castHash}`).url : casts.find(cast => cast.disabled !== true).url
+          url: castHash ? casts.find(cast => cast.hash === castHash).url : casts.find(cast => cast.disabled !== true).url
         }
       ],
       flipX: localStorage.getItem('flipX') === 'true',
@@ -51,7 +51,8 @@ class App extends Component {
       document.querySelector('body')?.classList.add('theme-dark')
       document.querySelector('#themes .dropdown-item[href="dark"]')?.classList.add('active')
     }
-    if (window.location.hash) {
+    const hash = window.location.hash.match(/^(?!#host)(#\w+)/)?.slice(1)[0]
+    if (hash) {
       document.querySelector(`#casts .dropdown-item[href="${window.location.hash}"]`)?.classList.add('active')
     } else {
       document.querySelector('#casts .dropdown-item:first-child')?.classList.add('active')
@@ -130,7 +131,7 @@ class App extends Component {
       document.querySelector('#casts .dropdown-item.active')?.classList.remove('active')
     }
     const newCast = event.target ? event.target.hash : window.location.hash
-    document.querySelector('#cast').src = this.state.casts.find(cast => cast.hash === newCast).url
+    document.querySelector('#cast').src = this.state.casts.find(cast => cast.hash === newCast.match(/(#\w+)/)?.slice(1)[0]).url
     document.querySelector(`#casts .dropdown-item[href="${newCast}"]`)?.classList.add('active')
   }
 
@@ -206,11 +207,9 @@ class App extends Component {
   }
 }
 
-const root = createRoot(document.querySelector('body'))
+const root = createRoot(document.querySelector('#root'))
 root.render(
-  <StrictMode>
-    <ErrorBoundary>
-      <App channel='fefegg' />
-    </ErrorBoundary>
-  </StrictMode>
+  <ErrorBoundary>
+    <App channel='fefegg' />
+  </ErrorBoundary>
 )
