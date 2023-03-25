@@ -8,7 +8,7 @@ export class Footer extends Component {
     super(props)
     this.state = {
       version: `v${Package.version}`,
-      upToDate: false
+      upToDate: true
     }
   }
 
