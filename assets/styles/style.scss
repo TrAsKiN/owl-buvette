@@ -103,10 +103,12 @@ iframe {
     }
 }
 #chat {
+    z-index: 1200;
     @include media-breakpoint-up(lg) {
         height: var(--player-height);
     }
     & iframe {
+        z-index: 1300;
         @include media-breakpoint-down(lg) {
             width: 100vw;
             height: 100vh;
