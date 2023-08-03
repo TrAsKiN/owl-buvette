@@ -1,189 +1,191 @@
-@import '~bootstrap';
-@import '~bootstrap-icons/font/bootstrap-icons.css';
-@import './themes.scss';
+@import "~bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "./themes.scss";
 
 :root {
-    --bs-link-color: var(--bs-body-bg);
-    --chat-width: 400px;
-    --player-width: calc(100vw - var(--chat-width));
-    --player-height: calc(var(--player-width) * 9 / 16);
-    --pip-width: calc(var(--player-width) * 0.25);
-    --pip-height-above-chat: calc(var(--chat-width) * 9 / 16);
-    &.fullscreen {
-        --player-width: 100vw;
-    }
+  --bs-link-color: var(--bs-body-bg);
+  --chat-width: 400px;
+  --player-width: calc(100vw - var(--chat-width));
+  --player-height: calc(var(--player-width) * 9 / 16);
+  --pip-width: calc(var(--player-width) * 0.25);
+  --pip-height-above-chat: calc(var(--chat-width) * 9 / 16);
+  &.fullscreen {
+    --player-width: 100vw;
+  }
 }
 .btn {
-    --bs-btn-focus-box-shadow: none;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .1);
+  --bs-btn-focus-box-shadow: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 }
 .btn-link {
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 .tooltip {
-    --bs-tooltip-max-width: 300px;
-    padding-bottom: 0;
+  --bs-tooltip-max-width: 300px;
+  padding-bottom: 0;
 }
 
 .dropdown-menu {
-    --bs-dropdown-color: var(--bs-body-color);
-    --bs-dropdown-bg: var(--bs-body-bg);
-    --bs-dropdown-link-color: var(--bs-link-color);
-    --bs-dropdown-link-hover-bg: var(--dropdown-link-hover-bg);
-    --bs-dropdown-link-hover-color: var(--bs-link-hover-color);
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, .25);
+  --bs-dropdown-color: var(--bs-body-color);
+  --bs-dropdown-bg: var(--bs-body-bg);
+  --bs-dropdown-link-color: var(--bs-link-color);
+  --bs-dropdown-link-hover-bg: var(--dropdown-link-hover-bg);
+  --bs-dropdown-link-hover-color: var(--bs-link-hover-color);
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+  max-height: calc(var(--player-height) - 10px);
+  overflow: auto;
 }
 [data-bs-toggle="popover"] {
-    cursor: help;
+  cursor: help;
 }
 .popover {
-    --bs-popover-bg: rgba(13, 202, 240, .75);
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+  --bs-popover-bg: rgba(13, 202, 240, 0.75);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 .popover a:hover {
-    text-decoration: underline !important;
+  text-decoration: underline !important;
 }
 
 body {
-    &::-webkit-scrollbar {
-        width: 0 !important;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    background-position: center bottom -22%;
-    background-size: contain;
-    background-repeat: no-repeat;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    height: 100%;
-    min-height: 100vh;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  background-position: center bottom -22%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  height: 100%;
+  min-height: 100vh;
 }
 iframe {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #app {
-    display: grid;
-    grid-template-columns: 1fr var(--chat-width);
-    // .fullscreen & {
-    //     grid-template-columns: 100vw;
-    // }
-    @include media-breakpoint-down(lg) {
-        grid-template-columns: none;
-    }
-    @include media-breakpoint-down(sm) {
-        display: block;
-    }
+  display: grid;
+  grid-template-columns: 1fr var(--chat-width);
+  // .fullscreen & {
+  //     grid-template-columns: 100vw;
+  // }
+  @include media-breakpoint-down(lg) {
+    grid-template-columns: none;
+  }
+  @include media-breakpoint-down(sm) {
+    display: block;
+  }
 }
 #players {
-    @include media-breakpoint-up(lg) {
-        width: var(--player-width);
-        height: var(--player-height);
-        max-height: 100vh;
-        .fullscreen & {
-            grid-column: 1 / 3;
-        }
+  @include media-breakpoint-up(lg) {
+    width: var(--player-width);
+    height: var(--player-height);
+    max-height: 100vh;
+    .fullscreen & {
+      grid-column: 1 / 3;
     }
+  }
+  @include media-breakpoint-down(lg) {
+    line-height: 0;
+    grid-template-columns: 50vw 50vw;
+  }
+  & iframe {
     @include media-breakpoint-down(lg) {
-        line-height: 0;
-        grid-template-columns: 50vw 50vw;
+      width: 50vw;
+      height: calc(50vw * 9 / 16);
     }
-    & iframe {
-        @include media-breakpoint-down(lg) {
-            width: 50vw;
-            height: calc(50vw * 9 / 16);
-        }
-        @include media-breakpoint-down(sm) {
-            width: 100vw;
-            height: calc(100vw * 9 / 16);
-        }
+    @include media-breakpoint-down(sm) {
+      width: 100vw;
+      height: calc(100vw * 9 / 16);
     }
+  }
 }
 #chat {
+  @include media-breakpoint-up(lg) {
+    height: var(--player-height);
+  }
+  & iframe {
+    @include media-breakpoint-down(lg) {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+  .above & iframe {
     @include media-breakpoint-up(lg) {
-        height: var(--player-height);
+      margin-top: var(--pip-height-above-chat);
+      height: calc(100% - var(--pip-height-above-chat));
     }
-    & iframe {
-        @include media-breakpoint-down(lg) {
-            width: 100vw;
-            height: 100vh;
-        }
-    }
-    .above & iframe {
-        @include media-breakpoint-up(lg) {
-            margin-top: var(--pip-height-above-chat);
-            height: calc(100% - var(--pip-height-above-chat));
-        }
-    }
+  }
 }
 
 .commands {
-    margin-top: .4rem;
-    @include media-breakpoint-up(lg) {
-        grid-column: 1;
-        &+& {
-            grid-column: 2;
-        }
+  margin-top: 0.4rem;
+  @include media-breakpoint-up(lg) {
+    grid-column: 1;
+    & + & {
+      grid-column: 2;
     }
+  }
 }
 
 .hide-on-mobile {
-    @include media-breakpoint-down(lg) {
-        display: none;
-    }
+  @include media-breakpoint-down(lg) {
+    display: none;
+  }
 }
 
 .pip {
+  @include media-breakpoint-up(lg) {
+    z-index: 1;
+    width: var(--pip-width);
+    height: calc(var(--pip-width) * 9 / 16);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .above & {
     @include media-breakpoint-up(lg) {
-        z-index: 1;
-        width: var(--pip-width);
-        height: calc(var(--pip-width) * 9 / 16);
-        position: absolute;
-        top: 0;
-        left: 0;
+      left: auto;
+      right: 0;
+      transform: none !important;
+      width: var(--chat-width);
+      height: calc(var(--chat-width) * 9 / 16);
     }
-    .above & {
-        @include media-breakpoint-up(lg) {
-            left: auto;
-            right: 0;
-            transform: none !important;
-            width: var(--chat-width);
-            height: calc(var(--chat-width) * 9 / 16);
-        }
-    }
-    &.animate {
-        transition: transform 100ms ease-in-out;
-    }
+  }
+  &.animate {
+    transition: transform 100ms ease-in-out;
+  }
 }
 :not(.above) .pip-bottom.pip-right .pip {
-    @include media-breakpoint-up(lg) {
-        transform: translateY(calc(300% - 50px)) translateX(calc(300% - 15px));
-        .fullscreen & {
-            transform: translateY(calc(240% - 50px)) translateX(calc(295% - 15px));
-        }
+  @include media-breakpoint-up(lg) {
+    transform: translateY(calc(300% - 50px)) translateX(calc(300% - 15px));
+    .fullscreen & {
+      transform: translateY(calc(240% - 50px)) translateX(calc(295% - 15px));
     }
+  }
 }
 :not(.above) .pip-top.pip-right .pip {
-    @include media-breakpoint-up(lg) {
-        transform: translateY(15px) translateX(calc(300% - 15px));
-        .fullscreen & {
-            transform: translateY(15px) translateX(calc(295% - 15px));
-        }
+  @include media-breakpoint-up(lg) {
+    transform: translateY(15px) translateX(calc(300% - 15px));
+    .fullscreen & {
+      transform: translateY(15px) translateX(calc(295% - 15px));
     }
+  }
 }
 :not(.above) .pip-bottom.pip-left .pip {
-    @include media-breakpoint-up(lg) {
-        transform: translateY(calc(300% - 50px)) translateX(15px);
-        .fullscreen & {
-            transform: translateY(calc(240% - 50px)) translateX(15px);
-        }
+  @include media-breakpoint-up(lg) {
+    transform: translateY(calc(300% - 50px)) translateX(15px);
+    .fullscreen & {
+      transform: translateY(calc(240% - 50px)) translateX(15px);
     }
+  }
 }
 :not(.above) .pip-top.pip-left .pip {
-    @include media-breakpoint-up(lg) {
-        transform: translateY(15px) translateX(15px);
-    }
+  @include media-breakpoint-up(lg) {
+    transform: translateY(15px) translateX(15px);
+  }
 }
