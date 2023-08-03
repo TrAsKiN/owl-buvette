@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Tooltip } from 'bootstrap/dist/js/bootstrap'
 
 import '../assets/styles/style.scss'
 
@@ -22,6 +23,7 @@ class App extends Component {
     this.state = {
       casts,
       themes,
+      activeTheme: localStorage.getItem('theme')?.substring(1),
       host: host,
       players: [
         {
@@ -57,6 +59,17 @@ class App extends Component {
     } else {
       document.querySelector('#casts .dropdown-item:first-child')?.classList.add('active')
     }
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    tooltipTriggerList.forEach(tooltipTriggerEl => {
+      new Tooltip(tooltipTriggerEl, {
+        boundary: tooltipTriggerEl.parentElement,
+        container: tooltipTriggerEl.parentElement,
+        placement: 'bottom',
+        fallbackPlacements: ['bottom'],
+        animation: false,
+        trigger: 'hover'
+      })
+    })
   }
 
   applyAnimation () {
@@ -148,6 +161,7 @@ class App extends Component {
     if (document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]')) {
       document.querySelector('#themes .dropdown-item[href="' + localStorage.getItem('theme') + '"]')?.classList.add('active')
     }
+    this.setState({activeTheme: localStorage.getItem('theme').substring(1)})
   }
 
   render () {
@@ -175,6 +189,7 @@ class App extends Component {
             )}
           </Players>
           <Chat
+            theme={this.state.activeTheme}
             host={this.state.host}
             channel={this.props.channel}
             showChat={this.state.showChat}
