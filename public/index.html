@@ -1,40 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>OWL Buvette</title>
-        <script>
-            fetch('build/entrypoints.json').then(response => {
-                response.json().then(json => {
-                    const entrypoints = json.entrypoints['app']
-                    for (const file of entrypoints.css) {
-                        const link = document.createElement('link')
-                        link.rel = 'stylesheet'
-                        link.href = file
-                        if (json.integrity !== undefined) {
-                            link.integrity = json.integrity[file]
-                        }
-                        document.head.appendChild(link)
-                    }
-                })
-            })
-        </script>
-        <script type="module" defer>
-            const response = await fetch('build/entrypoints.json')
-            const json = await response.json()
-            const entrypoints = json.entrypoints['app']
-            for (const file of entrypoints.js) {
-                const script = document.createElement('script')
-                script.src = file
-                if (json.integrity !== undefined) {
-                    script.integrity = json.integrity[file]
-                }
-                document.head.appendChild(script)
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OWL Buvette</title>
+    <script>
+      fetch("build/entrypoints.json").then((response) => {
+        response.json().then((json) => {
+          const entrypoints = json.entrypoints["app"];
+          for (const file of entrypoints.css) {
+            const link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = file;
+            if (json.integrity !== undefined) {
+              link.integrity = json.integrity[file];
             }
-        </script>
-    </head>
-    <body>
-        <div id="root"></div>
-    </body>
+            document.head.appendChild(link);
+          }
+        });
+      });
+    </script>
+    <script type="module" defer>
+      const response = await fetch("build/entrypoints.json");
+      const json = await response.json();
+      const entrypoints = json.entrypoints["app"];
+      for (const file of entrypoints.js) {
+        const script = document.createElement("script");
+        script.src = file;
+        if (json.integrity !== undefined) {
+          script.integrity = json.integrity[file];
+        }
+        document.head.appendChild(script);
+      }
+    </script>
+    <script src="https://apis.google.com/js/api.js" async defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
