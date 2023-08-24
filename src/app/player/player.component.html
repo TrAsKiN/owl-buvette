@@ -1,0 +1,11 @@
+<iframe
+  *ngIf="source && source.url"
+  [id]="source.id"
+  [src]="getSrc(source.url)"
+  [class.pip]="source.isPip"
+  [class.invisible]="!isActive"
+></iframe>
+<div *ngIf="source && !source.url">
+  <p>Impossible de trouver un cast !</p>
+  <p>Vérifiez l'URL et réessayez ou contactez moi sur Twitter ou Discord.</p>
+</div>

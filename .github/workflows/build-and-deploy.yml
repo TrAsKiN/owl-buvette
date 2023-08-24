@@ -28,7 +28,7 @@ jobs:
             --exclude=.github \
             .
         env:
-          INPUT_PATH: public/
+          INPUT_PATH: dist/buvette/
       - name: Upload artifact
         uses: actions/upload-artifact@main
         with:

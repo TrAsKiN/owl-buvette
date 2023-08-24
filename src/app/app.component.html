@@ -1,0 +1,14 @@
+<div id="app">
+  <app-players [position]="position">
+    <app-player [source]="host" [isActive]="true"></app-player>
+    <app-player [source]="cast" [isActive]="true"></app-player>
+  </app-players>
+  <app-chat
+    [channel]="channel"
+    [isDark]="theme === 'theme-dark'"
+    [show]="true"
+  ></app-chat>
+  <app-players-commands></app-players-commands>
+  <app-chat-commands></app-chat-commands>
+</div>
+<app-footer></app-footer>

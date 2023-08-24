@@ -1,36 +1,87 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { ChangeDetectorRef, Component, Renderer2 } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { ActivatedRoute, RouterOutlet } from "@angular/router";
+import { filter } from "rxjs";
+import { CASTS } from "./cast";
+import { ChatCommandsComponent } from "./chat-commands/chat-commands.component";
+import { ChatComponent } from "./chat/chat.component";
+import { FooterComponent } from "./footer/footer.component";
+import { Player, PlayerComponent } from "./player/player.component";
+import { PlayersCommandsComponent } from "./players-commands/players-commands.component";
+import { PlayersComponent, Position } from "./players/players.component";
+
+export type Pip = "host" | "cast";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  template: `
-    <!--The content below is only a placeholder and can be replaced.-->
-    <div style="text-align:center" class="content">
-      <h1>
-        Welcome to {{title}}!
-      </h1>
-      <span style="display: block">{{ title }} app is running!</span>
-      <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-    </div>
-    <h2>Here are some links to help you start: </h2>
-    <ul>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-      </li>
-      <li>
-        <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-      </li>
-    </ul>
-    <router-outlet></router-outlet>
-  `,
-  styles: [],
+  templateUrl: "app.component.html",
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    PlayersComponent,
+    PlayerComponent,
+    ChatComponent,
+    FooterComponent,
+    PlayersCommandsComponent,
+    ChatCommandsComponent,
+  ],
 })
 export class AppComponent {
-  title = 'buvette';
+  private pip: Pip = "host";
+
+  protected theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "theme-dark"
+    : "theme-light";
+  protected channel = "fefegg";
+  protected position: Position = {
+    flipX: false,
+    flipY: false,
+  };
+  protected host: Player = {
+    id: "host",
+    isPip: this.pip === "host",
+    url: `https://player.twitch.tv/?channel=${this.channel}`,
+  };
+  protected cast: Player = {
+    id: "cast",
+    isPip: this.pip === "cast",
+    url: null,
+  };
+
+  constructor(
+    renderer: Renderer2,
+    route: ActivatedRoute,
+    cd: ChangeDetectorRef
+  ) {
+    route.fragment
+      .pipe(
+        filter((fragment) => fragment !== ""),
+        takeUntilDestroyed()
+      )
+      .subscribe((fragment) => {
+        if (fragment) {
+          const cast = CASTS.find(
+            (cast) => cast.hash === fragment && !cast.disabled
+          );
+          if (cast) {
+            this.cast.url = cast.url;
+            return;
+          }
+        }
+        const defaultCast = CASTS.find((cast) => !cast.disabled);
+        if (defaultCast) {
+          this.cast.url = defaultCast.url;
+          return;
+        }
+        throw new Error("Unable to find a cast!");
+      });
+    renderer.setAttribute(
+      window.document.body,
+      "data-bs-theme",
+      window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light"
+    );
+    renderer.addClass(window.document.body, this.theme);
+  }
 }
