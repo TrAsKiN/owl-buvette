@@ -3,8 +3,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DoCheck,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -23,35 +25,40 @@ export interface Player {
   templateUrl: "player.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayerComponent implements OnChanges {
+export class PlayerComponent implements OnInit, OnChanges, DoCheck {
   @Input() public source?: Player;
   @Input() public isActive = false;
 
-  private hasChanged = false;
+  private url?: string | null;
 
   protected getSrc(url: string) {
     if (url.startsWith("https://player.twitch.tv/")) {
       url = `${url}&parent=${window.location.hostname}`;
     }
+    if (url.startsWith("https://www.youtube.com/")) {
+      url = `${url}&autoplay=1`;
+    }
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
-  constructor(private sanitizer: DomSanitizer, private cd: ChangeDetectorRef) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private cd: ChangeDetectorRef,
+  ) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes["source"].firstChange ||
-      changes["source"].previousValue?.url !==
-        changes["source"].currentValue?.url
-    ) {
-      this.hasChanged = true;
-    }
+  ngOnInit() {
+    this.url = this.source?.url;
   }
 
   ngDoCheck() {
-    if (this.hasChanged) {
+    if (this.url !== this.source?.url) {
       this.cd.markForCheck();
-      this.hasChanged = false;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["source"].currentValue?.url !== this.url) {
+      this.url = changes["source"].currentValue.url;
     }
   }
 }
