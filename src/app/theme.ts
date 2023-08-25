@@ -1,15 +1,15 @@
 export interface Theme {
-  hash: string;
+  id: string;
   name: string;
 }
 
 export const THEMES: Theme[] = [
   {
-    hash: "#dark",
+    id: "dark",
     name: "Sombre",
   },
   {
-    hash: "#light",
+    id: "light",
     name: "Lumineux",
   },
 ];

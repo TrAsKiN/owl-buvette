@@ -3,13 +3,14 @@ import { ChangeDetectorRef, Component, Renderer2 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, RouterOutlet } from "@angular/router";
 import { filter } from "rxjs";
-import { CASTS } from "./cast";
+import { CASTS, Cast } from "./cast";
 import { ChatCommandsComponent } from "./chat-commands/chat-commands.component";
 import { ChatComponent } from "./chat/chat.component";
 import { FooterComponent } from "./footer/footer.component";
 import { Player, PlayerComponent } from "./player/player.component";
 import { PlayersCommandsComponent } from "./players-commands/players-commands.component";
 import { PlayersComponent, Position } from "./players/players.component";
+import { THEMES, Theme } from "./theme";
 
 export type Pip = "host" | "cast";
 
@@ -50,29 +51,38 @@ export class AppComponent {
     url: null,
   };
 
+  protected selectedCast?: Cast;
+  protected selectedTheme?: Theme = THEMES.find(
+    (theme) =>
+      theme.id ===
+      (window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light"),
+  );
+
   constructor(
     renderer: Renderer2,
     route: ActivatedRoute,
-    cd: ChangeDetectorRef
+    cd: ChangeDetectorRef,
   ) {
     route.fragment
       .pipe(
         filter((fragment) => fragment !== ""),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe((fragment) => {
         if (fragment) {
           const cast = CASTS.find(
-            (cast) => cast.hash === fragment && !cast.disabled
+            (cast) => cast.hash.slice(1) === fragment && !cast.disabled,
           );
           if (cast) {
             this.cast.url = cast.url;
+            this.selectedCast = cast;
             return;
           }
         }
         const defaultCast = CASTS.find((cast) => !cast.disabled);
         if (defaultCast) {
           this.cast.url = defaultCast.url;
+          this.selectedCast = defaultCast;
           return;
         }
         throw new Error("Unable to find a cast!");
@@ -80,7 +90,7 @@ export class AppComponent {
     renderer.setAttribute(
       window.document.body,
       "data-bs-theme",
-      window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light"
+      window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light",
     );
     renderer.addClass(window.document.body, this.theme);
   }

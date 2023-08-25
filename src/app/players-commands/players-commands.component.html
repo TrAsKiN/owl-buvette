@@ -50,7 +50,15 @@
       <i class="bi bi-chat-dots"></i>
     </button>
     <ul id="casts" class="dropdown-menu">
-      <li><a class="dropdown-item" href="#owlEN">cast.name</a></li>
+      <li *ngFor="let cast of casts">
+        <a
+          class="dropdown-item"
+          [href]="cast.hash"
+          [class.active]="selectedCast === cast"
+        >
+          {{ cast.name }}
+        </a>
+      </li>
     </ul>
   </div>
   <div
@@ -68,7 +76,16 @@
       <i class="bi bi-palette"></i>
     </button>
     <ul id="themes" class="dropdown-menu">
-      <li><a class="dropdown-item" href="#owlFR">theme.name</a></li>
+      <li *ngFor="let theme of themes">
+        <a
+          class="dropdown-item"
+          [class.active]="selectedTheme === theme"
+          [href]="'#' + theme.id"
+          (click)="onChangeTheme($event)"
+        >
+          {{ theme.name }}
+        </a>
+      </li>
     </ul>
   </div>
 </div>

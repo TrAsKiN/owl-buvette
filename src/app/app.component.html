@@ -8,7 +8,10 @@
     [isDark]="theme === 'theme-dark'"
     [show]="true"
   ></app-chat>
-  <app-players-commands></app-players-commands>
+  <app-players-commands
+    [selectedCast]="selectedCast"
+    [selectedTheme]="selectedTheme"
+  ></app-players-commands>
   <app-chat-commands></app-chat-commands>
 </div>
 <app-footer></app-footer>
