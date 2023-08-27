@@ -1,12 +1,15 @@
 <iframe
-  *ngIf="source && source.url"
-  [id]="source.id"
-  [src]="getSrc(source.url)"
-  [class.pip]="source.isPip"
-  [class.invisible]="!isActive"
+  #playerElement
+  *ngIf="player && player.url"
+  [id]="player.type"
+  [cachedSrc]="getSrc(player.url)"
+  [class.pip]="isPip"
+  [class.invisible]="isPip && !(pipActive$ | async)"
+  (transitionend)="onTransitionEnd()"
+  allow="autoplay"
 ></iframe>
 <div
-  *ngIf="source && !source.url"
+  *ngIf="player && !player.url"
   class="d-flex justify-content-center align-items-center h-100 w-100"
 >
   <p class="text-center lead">

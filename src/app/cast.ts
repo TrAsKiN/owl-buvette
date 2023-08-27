@@ -1,17 +1,6 @@
-export interface Cast {
-  hash: string;
-  name: string;
-  disabled: boolean;
-  url: string;
-}
+import { Cast } from "./app.model";
 
 export const CASTS: Cast[] = [
-  {
-    hash: "#owlFR",
-    name: "OWL FR",
-    disabled: false,
-    url: "https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow",
-  },
   {
     hash: "#owlEN",
     name: "OWL EN",
@@ -19,16 +8,22 @@ export const CASTS: Cast[] = [
     url: "https://www.youtube.com/embed/live_stream?channel=UCiAInBL9kUzz1XRxk66v-gw",
   },
   {
-    hash: "#contendersFR",
-    name: "Contenders FR",
-    disabled: false,
-    url: "https://www.youtube.com/embed/live_stream?channel=UCJIvTeyysEHViDfNz3stLYQ",
+    hash: "#owlFR",
+    name: "OWL FR",
+    disabled: true,
+    url: "https://www.youtube.com/embed/live_stream?channel=UCI45pR3yMi0uGE47ewT43Ow",
   },
   {
     hash: "#contendersEN",
     name: "Contenders EN",
     disabled: false,
     url: "https://www.youtube.com/embed/live_stream?channel=UCWPW0pjx6gncOEnTW8kYzrg",
+  },
+  {
+    hash: "#contendersFR",
+    name: "Contenders FR",
+    disabled: true,
+    url: "https://www.youtube.com/embed/live_stream?channel=UCJIvTeyysEHViDfNz3stLYQ",
   },
   {
     hash: "#contendersTrials",

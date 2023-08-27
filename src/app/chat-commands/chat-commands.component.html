@@ -1,31 +1,35 @@
-<div class="commands text-center hide-on-mobile">
-  <button
-    type="button"
-    class="btn btn-sm btn-link mx-1"
-    data-bs-toggle="tooltip"
-    data-bs-placement="bottom"
-    title="Masquer le lecteur"
-  >
-    <i class="bi bi-eye-slash"></i>
-  </button>
-  <button
-    type="button"
-    class="btn btn-sm btn-link mx-1"
-    data-bs-toggle="tooltip"
-    data-bs-placement="bottom"
-    title="Placer/enlever au-dessus du chat"
-  >
-    <i class="bi bi-box-arrow-left"></i>
-    <i class="bi bi-box-arrow-in-right"></i>
-  </button>
-  <button
-    type="button"
-    class="btn btn-sm btn-link mx-1"
-    data-bs-toggle="tooltip"
-    data-bs-placement="bottom"
-    title="Basculer le chat"
-  >
-    <i class="bi bi-arrow-bar-right"></i>
-    <i class="bi bi-arrow-bar-left"></i>
-  </button>
-</div>
+<button
+  type="button"
+  class="btn btn-sm btn-link mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Masquer le lecteur"
+  (click)="onChangePipActive()"
+  *ngIf="pipAboveChat && showChat"
+>
+  <i class="bi bi-eye-slash" *ngIf="pipActive"></i>
+  <i class="bi bi-eye" *ngIf="!pipActive"></i>
+</button>
+<button
+  type="button"
+  class="btn btn-sm btn-link mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Placer/enlever au-dessus du chat"
+  (click)="onChangeAboveChat()"
+  *ngIf="showChat"
+>
+  <i class="bi bi-box-arrow-left" *ngIf="pipAboveChat"></i>
+  <i class="bi bi-box-arrow-in-right" *ngIf="!pipAboveChat"></i>
+</button>
+<button
+  type="button"
+  class="btn btn-sm btn-link mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Basculer le chat"
+  (click)="onChangeShowChat()"
+>
+  <i class="bi bi-arrow-bar-right" *ngIf="showChat"></i>
+  <i class="bi bi-arrow-bar-left" *ngIf="!showChat"></i>
+</button>

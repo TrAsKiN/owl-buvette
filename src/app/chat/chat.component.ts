@@ -13,7 +13,7 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
   `,
 })
 export class ChatComponent {
-  @Input() show: boolean = true;
+  @Input() show?: boolean | null;
   @Input() isDark: boolean = true;
   @Input() channel?: string;
 
@@ -25,7 +25,7 @@ export class ChatComponent {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(
       `https://www.twitch.tv/embed/${this.channel}/chat${
         this.isDark ? "?darkpopout&" : "?"
-      }parent=${window.location.hostname}`
+      }parent=${window.location.hostname}`,
     );
   }
 }

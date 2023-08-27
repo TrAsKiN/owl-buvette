@@ -2,16 +2,21 @@ import { CommonModule } from "@angular/common";
 import { Component, Renderer2 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, RouterOutlet } from "@angular/router";
+import { Store } from "@ngrx/store";
 import { filter } from "rxjs";
-import { CASTS, Cast } from "./cast";
+import { Cast, Player, Theme } from "./app.model";
+import { CASTS } from "./cast";
 import { ChatCommandsComponent } from "./chat-commands/chat-commands.component";
 import { ChatComponent } from "./chat/chat.component";
 import { FooterComponent } from "./footer/footer.component";
-import { Player, PlayerComponent } from "./player/player.component";
+import { PlayerComponent } from "./player/player.component";
 import { PlayersCommandsComponent } from "./players-commands/players-commands.component";
-import { THEMES, Theme } from "./theme";
-
-export type Pip = "host" | "cast";
+import {
+  selectPipAboveChat,
+  selectPosition,
+  selectShowChat,
+} from "./store/state.selectors";
+import { THEMES } from "./theme";
 
 @Component({
   selector: "app-root",
@@ -28,31 +33,29 @@ export type Pip = "host" | "cast";
   ],
 })
 export class AppComponent {
-  private pip: Pip = "host";
-
   protected theme?: Theme = THEMES.find(
     (theme) =>
       theme.id ===
       (window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light"),
   );
   protected channel = "fefegg";
-  protected position = {
-    flipX: false,
-    flipY: false,
-  };
   protected host: Player = {
-    id: "host",
-    isPip: true,
+    type: "host",
     url: `https://player.twitch.tv/?channel=${this.channel}`,
   };
   protected cast: Player = {
-    id: "cast",
-    isPip: false,
+    type: "cast",
     url: null,
   };
   protected selectedCast?: Cast;
+  protected position$ = this.store.select(selectPosition);
+  protected showChat$ = this.store.select(selectShowChat);
 
-  constructor(renderer: Renderer2, route: ActivatedRoute) {
+  constructor(
+    renderer: Renderer2,
+    route: ActivatedRoute,
+    private store: Store,
+  ) {
     route.fragment
       .pipe(
         takeUntilDestroyed(),
@@ -83,6 +86,26 @@ export class AppComponent {
       );
       renderer.addClass(window.document.body, this.theme.id);
     }
+    store
+      .select(selectPipAboveChat)
+      .pipe(takeUntilDestroyed())
+      .subscribe((pipAboveChat) => {
+        if (pipAboveChat) {
+          renderer.addClass(window.document.body, "above");
+        } else {
+          renderer.removeClass(window.document.body, "above");
+        }
+      });
+    store
+      .select(selectShowChat)
+      .pipe(takeUntilDestroyed())
+      .subscribe((showChat) => {
+        if (!showChat) {
+          renderer.addClass(window.document.documentElement, "fullscreen");
+        } else {
+          renderer.removeClass(window.document.documentElement, "fullscreen");
+        }
+      });
   }
 
   protected isDark() {

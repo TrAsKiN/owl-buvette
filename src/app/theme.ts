@@ -1,7 +1,4 @@
-export interface Theme {
-  id: string;
-  name: string;
-}
+import { Theme } from "./app.model";
 
 export const THEMES: Theme[] = [
   {
