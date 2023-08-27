@@ -3,11 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  DoCheck,
   Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Pip } from "../app.component";
@@ -25,11 +21,9 @@ export interface Player {
   templateUrl: "player.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayerComponent implements OnInit, OnChanges, DoCheck {
+export class PlayerComponent {
   @Input() public source?: Player;
   @Input() public isActive = false;
-
-  private url?: string | null;
 
   protected getSrc(url: string) {
     if (url.startsWith("https://player.twitch.tv/")) {
@@ -41,24 +35,17 @@ export class PlayerComponent implements OnInit, OnChanges, DoCheck {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  private _oldUrl?: string | null;
+
   constructor(
     private sanitizer: DomSanitizer,
     private cd: ChangeDetectorRef,
   ) {}
 
-  ngOnInit() {
-    this.url = this.source?.url;
-  }
-
   ngDoCheck() {
-    if (this.url !== this.source?.url) {
+    if (this.source?.id === "cast" && this._oldUrl !== this.source?.url) {
+      this._oldUrl = this.source.url;
       this.cd.markForCheck();
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes["source"].currentValue?.url !== this.url) {
-      this.url = changes["source"].currentValue.url;
     }
   }
 }
