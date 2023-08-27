@@ -5,7 +5,13 @@
   [class.pip]="source.isPip"
   [class.invisible]="!isActive"
 ></iframe>
-<div *ngIf="source && !source.url">
-  <p>Impossible de trouver un cast !</p>
-  <p>Vérifiez l'URL et réessayez ou contactez moi sur Twitter ou Discord.</p>
+<div
+  *ngIf="source && !source.url"
+  class="d-flex justify-content-center align-items-center h-100 w-100"
+>
+  <p class="text-center lead">
+    <strong>Impossible de trouver un cast !</strong>
+    <br />
+    Vérifiez l'URL et réessayez ou contactez moi sur Twitter ou Discord.
+  </p>
 </div>
