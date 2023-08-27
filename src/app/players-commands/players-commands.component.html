@@ -61,31 +61,4 @@
       </li>
     </ul>
   </div>
-  <div
-    class="btn-group dropup mx-1"
-    data-bs-toggle="tooltip"
-    data-bs-placement="bottom"
-    title="Choix du thème"
-  >
-    <button
-      type="button"
-      class="btn btn-sm btn-link dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-      <i class="bi bi-palette"></i>
-    </button>
-    <ul id="themes" class="dropdown-menu">
-      <li *ngFor="let theme of themes">
-        <a
-          class="dropdown-item"
-          [class.active]="selectedTheme === theme"
-          [href]="'#' + theme.id"
-          (click)="onChangeTheme($event)"
-        >
-          {{ theme.name }}
-        </a>
-      </li>
-    </ul>
-  </div>
 </div>

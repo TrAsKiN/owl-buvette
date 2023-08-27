@@ -36,9 +36,10 @@
 .popover {
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  cursor: help;
-  & a:hover {
-    text-decoration: underline !important;
+  & a {
+    &:hover {
+      text-decoration: underline !important;
+    }
   }
 }
 

@@ -1,16 +1,18 @@
 <div id="app">
-  <app-players [position]="position">
+  <div
+    id="players"
+    [class.pip-left]="position.flipX"
+    [class.pip-right]="!position.flipX"
+    [class.pip-top]="position.flipY"
+    [class.pip-bottom]="!position.flipY"
+  >
     <app-player [source]="host" [isActive]="true"></app-player>
     <app-player [source]="cast" [isActive]="true"></app-player>
-  </app-players>
-  <app-chat
-    [channel]="channel"
-    [isDark]="theme === 'theme-dark'"
-    [show]="true"
-  ></app-chat>
+  </div>
+  <app-chat [channel]="channel" [isDark]="isDark()" [show]="true"></app-chat>
   <app-players-commands
     [selectedCast]="selectedCast"
-    [selectedTheme]="selectedTheme"
+    [selectedTheme]="theme"
   ></app-players-commands>
   <app-chat-commands></app-chat-commands>
 </div>
