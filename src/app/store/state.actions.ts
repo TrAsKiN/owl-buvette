@@ -1,5 +1,10 @@
 import { createAction, props } from "@ngrx/store";
-import { Pip, Position } from "../app.model";
+import { Pip, Position, State } from "../app.model";
+
+export const setState = createAction(
+  "[State] set state",
+  props<{ newState: State }>(),
+);
 
 export const setPip = createAction("[State] set PiP", props<{ pip: Pip }>());
 

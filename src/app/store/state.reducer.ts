@@ -15,6 +15,7 @@ export const initialState: State = {
 
 export const stateReducer = createReducer(
   initialState,
+  on(StateActions.setState, (state, { newState }) => ({ ...state, newState })),
   on(StateActions.setPip, (state, { pip }) => ({ ...state, pip })),
   on(StateActions.setPosition, (state, { position }) => ({
     ...state,
