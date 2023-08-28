@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Store } from "@ngrx/store";
-import { tap } from "rxjs";
 import { State } from "./app.model";
 import { setState } from "./store/state.actions";
 import { selectState } from "./store/state.selectors";
@@ -20,10 +19,7 @@ export class StorageService {
 
     store
       .select(selectState)
-      .pipe(
-        takeUntilDestroyed(),
-        tap((state) => console.log("state", state)),
-      )
+      .pipe(takeUntilDestroyed())
       .subscribe((state) => (this.data = state));
   }
 
