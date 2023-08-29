@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Store } from "@ngrx/store";
-import { State } from "./app.model";
-import { setState } from "./store/state.actions";
-import { selectState } from "./store/state.selectors";
+import { State } from "../app.model";
+import { setState } from "../store/state.actions";
+import { selectState } from "../store/state.selectors";
 
 @Injectable({
   providedIn: "root",

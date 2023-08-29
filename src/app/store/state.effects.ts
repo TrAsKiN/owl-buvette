@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect } from "@ngrx/effects";
 import { tap } from "rxjs";
-import { StorageService } from "../storage.service";
+import { StorageService } from "../services/storage.service";
 
 @Injectable()
 export class StateEffects {

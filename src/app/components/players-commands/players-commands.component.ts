@@ -2,16 +2,15 @@ import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Store } from "@ngrx/store";
-import { Cast, Pip, Position } from "../app.model";
-import { CASTS } from "../cast";
-import { setPip, setPipActive, setPosition } from "../store/state.actions";
+import { Cast, Pip, Position } from "../../app.model";
+import { CASTS } from "../../cast";
+import { setPip, setPipActive, setPosition } from "../../store/state.actions";
 import {
   selectPip,
   selectPipAboveChat,
   selectPipActive,
   selectPosition,
-} from "../store/state.selectors";
-import { THEMES } from "../theme";
+} from "../../store/state.selectors";
 
 @Component({
   selector: "app-players-commands",
@@ -23,7 +22,6 @@ export class PlayersCommandsComponent {
   @Input() public selectedCast?: Cast;
 
   protected casts = CASTS.filter((cast) => !cast.disabled);
-  protected themes = THEMES;
 
   protected pip?: Pip;
   protected pipActive?: boolean;

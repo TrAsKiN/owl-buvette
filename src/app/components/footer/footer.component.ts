@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import { Popover } from "bootstrap";
 import { from } from "rxjs";
 import semver from "semver";
-import Package from "../../../package.json";
+import Package from "../../../../package.json";
 
 @Component({
   selector: "app-footer",
@@ -23,7 +23,7 @@ export class FooterComponent implements AfterViewInit {
       new Octokit().repos.getLatestRelease({
         owner: "TrAsKiN",
         repo: "owl-buvette",
-      })
+      }),
     ).subscribe(({ data }) => {
       const remoteVersion = semver.clean(data.tag_name);
       if (remoteVersion && semver.compare(this.version, remoteVersion) < 0) {

@@ -9,13 +9,13 @@ import {
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Store } from "@ngrx/store";
-import { Player } from "../app.model";
-import { CachedSrcDirective } from "../cached-src.directive";
+import { Player } from "../../app.model";
+import { CachedSrcDirective } from "../../directives/cached-src.directive";
 import {
   selectPip,
   selectPipActive,
   selectPosition,
-} from "../store/state.selectors";
+} from "../../store/state.selectors";
 
 @Component({
   selector: "app-player",

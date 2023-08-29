@@ -6,12 +6,12 @@ import {
   setPipAboveChat,
   setPipActive,
   setShowChat,
-} from "../store/state.actions";
+} from "../../store/state.actions";
 import {
   selectPipAboveChat,
   selectPipActive,
   selectShowChat,
-} from "../store/state.selectors";
+} from "../../store/state.selectors";
 
 @Component({
   selector: "app-chat-commands",
