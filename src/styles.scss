@@ -14,11 +14,8 @@
 
 .btn {
   --bs-btn-focus-box-shadow: none;
+  border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-}
-
-.btn-link {
-  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
 
@@ -34,7 +31,6 @@
 }
 
 .popover {
-  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   & a {
     &:hover {

@@ -20,8 +20,9 @@ import {
 })
 export class PlayersCommandsComponent {
   @Input() public selectedCast?: Cast;
+  @Input() public host?: string;
 
-  protected casts = CASTS.filter((cast) => !cast.disabled);
+  protected casts = CASTS.filter(cast => !cast.disabled);
 
   protected pip?: Pip;
   protected pipActive?: boolean;
@@ -32,19 +33,19 @@ export class PlayersCommandsComponent {
     this.store
       .select(selectPip)
       .pipe(takeUntilDestroyed())
-      .subscribe((pip) => (this.pip = pip));
+      .subscribe(pip => (this.pip = pip));
     this.store
       .select(selectPipActive)
       .pipe(takeUntilDestroyed())
-      .subscribe((pipActive) => (this.pipActive = pipActive));
+      .subscribe(pipActive => (this.pipActive = pipActive));
     this.store
       .select(selectPipAboveChat)
       .pipe(takeUntilDestroyed())
-      .subscribe((pipAboveChat) => (this.pipAboveChat = pipAboveChat));
+      .subscribe(pipAboveChat => (this.pipAboveChat = pipAboveChat));
     this.store
       .select(selectPosition)
       .pipe(takeUntilDestroyed())
-      .subscribe((position) => (this.position = position));
+      .subscribe(position => (this.position = position));
   }
 
   onChangeSwap() {

@@ -57,14 +57,14 @@ export class PlayerComponent {
   }
 
   ngOnInit() {
-    this.store.select(selectPip).subscribe((pip) => {
+    this.store.select(selectPip).subscribe(pip => {
       this.isPip = pip === this.player?.type;
       this.cd.markForCheck();
     });
   }
 
   ngDoCheck() {
-    if (this.player?.type === "cast" && this._cachedUrl !== this.player.url) {
+    if (this.player && this._cachedUrl !== this.player.url) {
       this._cachedUrl = this.player.url;
       this.cd.markForCheck();
     }

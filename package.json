@@ -15,7 +15,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development"
+    "watch": "ng build --watch --configuration development",
+    "fix": "prettier . --write"
   },
   "dependencies": {
     "@angular/animations": "^16.2.0",
@@ -30,7 +31,6 @@
     "@ngrx/store": "^16.2.0",
     "@octokit/rest": "^20.0.1",
     "@popperjs/core": "^2.11.8",
-    "@traskin/twitch-tools-js": "^1.1.1",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "rxjs": "~7.8.0",

@@ -6,11 +6,11 @@ import { Store } from "@ngrx/store";
 import { filter } from "rxjs";
 import { Cast, Player, Theme } from "./app.model";
 import { CASTS } from "./cast";
-import { ChatCommandsComponent } from "./chat-commands/chat-commands.component";
-import { ChatComponent } from "./chat/chat.component";
-import { FooterComponent } from "./footer/footer.component";
-import { PlayerComponent } from "./player/player.component";
-import { PlayersCommandsComponent } from "./players-commands/players-commands.component";
+import { ChatCommandsComponent } from "./components/chat-commands/chat-commands.component";
+import { ChatComponent } from "./components/chat/chat.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { PlayerComponent } from "./components/player/player.component";
+import { PlayersCommandsComponent } from "./components/players-commands/players-commands.component";
 import {
   selectPipAboveChat,
   selectPosition,
@@ -33,15 +33,16 @@ import { THEMES } from "./theme";
   ],
 })
 export class AppComponent {
+  public DEFAULT_HOST = "fefegg";
   protected theme?: Theme = THEMES.find(
-    (theme) =>
+    theme =>
       theme.id ===
       (window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light"),
   );
-  protected channel = "fefegg";
+  protected channel = this.DEFAULT_HOST;
   protected host: Player = {
     type: "host",
-    url: `https://player.twitch.tv/?channel=${this.channel}`,
+    url: null,
   };
   protected cast: Player = {
     type: "cast",
@@ -56,22 +57,37 @@ export class AppComponent {
     route: ActivatedRoute,
     private store: Store,
   ) {
+    this.host.url = `https://player.twitch.tv/?channel=${this.channel}`;
     route.fragment
       .pipe(
         takeUntilDestroyed(),
-        filter((fragment) => fragment !== ""),
+        filter(fragment => fragment !== ""),
       )
-      .subscribe((fragment) => {
+      .subscribe(fragment => {
+        const castHash = fragment?.match(/^(?!host)(\w+)/)?.shift();
+        const host = fragment
+          ?.match(/host=(\w+)/)
+          ?.slice(1)
+          .shift();
+        if (host) {
+          this.channel = host;
+          this.host.url = `https://player.twitch.tv/?channel=${this.channel}`;
+        }
+
         const cast = CASTS.find(
-          (cast) => cast.hash.slice(1) === fragment && !cast.disabled,
+          cast => cast.hash.slice(1) === castHash && !cast.disabled,
         );
+        if (cast && this.cast.url === cast.url) {
+          return;
+        }
         if (cast && this.cast.url !== cast.url) {
           this.cast.url = cast.url;
           this.selectedCast = cast;
           return;
         }
-        const defaultCast = CASTS.find((cast) => !cast.disabled);
-        if (defaultCast && this.cast.url !== defaultCast.url) {
+
+        const defaultCast = CASTS.find(cast => !cast.disabled);
+        if (!cast && defaultCast && this.cast.url !== defaultCast.url) {
           this.cast.url = defaultCast.url;
           this.selectedCast = defaultCast;
           return;
@@ -89,7 +105,7 @@ export class AppComponent {
     store
       .select(selectPipAboveChat)
       .pipe(takeUntilDestroyed())
-      .subscribe((pipAboveChat) => {
+      .subscribe(pipAboveChat => {
         if (pipAboveChat) {
           renderer.addClass(window.document.body, "above");
         } else {
@@ -99,7 +115,7 @@ export class AppComponent {
     store
       .select(selectShowChat)
       .pipe(takeUntilDestroyed())
-      .subscribe((showChat) => {
+      .subscribe(showChat => {
         if (!showChat) {
           renderer.addClass(window.document.documentElement, "fullscreen");
         } else {

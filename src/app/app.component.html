@@ -5,22 +5,19 @@
     [class.pip-left]="position.flipX"
     [class.pip-right]="!position.flipX"
     [class.pip-top]="position.flipY"
-    [class.pip-bottom]="!position.flipY"
-  >
+    [class.pip-bottom]="!position.flipY">
     <app-player [player]="host"></app-player>
     <app-player [player]="cast"></app-player>
   </div>
   <app-chat
     [channel]="channel"
     [isDark]="isDark()"
-    [show]="showChat$ | async"
-  ></app-chat>
+    [show]="showChat$ | async"></app-chat>
   <app-players-commands
     [selectedCast]="selectedCast"
-    class="commands text-center"
-  ></app-players-commands>
+    [host]="channel !== DEFAULT_HOST ? channel : undefined"
+    class="commands text-center"></app-players-commands>
   <app-chat-commands
-    class="commands text-center hide-on-mobile"
-  ></app-chat-commands>
+    class="commands text-center hide-on-mobile"></app-chat-commands>
 </div>
 <app-footer></app-footer>

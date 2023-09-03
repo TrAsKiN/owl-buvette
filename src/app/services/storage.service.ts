@@ -20,7 +20,7 @@ export class StorageService {
     store
       .select(selectState)
       .pipe(takeUntilDestroyed())
-      .subscribe((state) => (this.data = state));
+      .subscribe(state => (this.data = state));
   }
 
   public save() {

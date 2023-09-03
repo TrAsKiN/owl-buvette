@@ -1,35 +1,34 @@
 <button
   type="button"
-  class="btn btn-sm btn-link mx-1"
+  class="btn btn-sm mx-1"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="Masquer le lecteur"
+  [title]="(pipActive ? 'Masquer' : 'Afficher') + ' le petit lecteur'"
   (click)="onChangePipActive()"
-  *ngIf="pipAboveChat && showChat"
->
+  *ngIf="pipAboveChat && showChat">
   <i class="bi bi-eye-slash" *ngIf="pipActive"></i>
   <i class="bi bi-eye" *ngIf="!pipActive"></i>
 </button>
 <button
   type="button"
-  class="btn btn-sm btn-link mx-1"
+  class="btn btn-sm mx-1"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="Placer/enlever au-dessus du chat"
+  [title]="
+    pipAboveChat ? 'Enlever du dessus du chat' : 'Placer au-dessus du chat'
+  "
   (click)="onChangeAboveChat()"
-  *ngIf="showChat"
->
+  *ngIf="showChat">
   <i class="bi bi-box-arrow-left" *ngIf="pipAboveChat"></i>
   <i class="bi bi-box-arrow-in-right" *ngIf="!pipAboveChat"></i>
 </button>
 <button
   type="button"
-  class="btn btn-sm btn-link mx-1"
+  class="btn btn-sm mx-1"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="Basculer le chat"
-  (click)="onChangeShowChat()"
->
+  [title]="showChat ? 'Masquer le chat' : 'Afficher le chat'"
+  (click)="onChangeShowChat()">
   <i class="bi bi-arrow-bar-right" *ngIf="showChat"></i>
   <i class="bi bi-arrow-bar-left" *ngIf="!showChat"></i>
 </button>

@@ -21,7 +21,7 @@ export class ChatComponent {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit() {
+  ngOnChanges() {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(
       `https://www.twitch.tv/embed/${this.channel}/chat${
         this.isDark ? "?darkpopout&" : "?"

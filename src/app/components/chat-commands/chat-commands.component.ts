@@ -28,19 +28,19 @@ export class ChatCommandsComponent {
     this.store
       .select(selectPipActive)
       .pipe(takeUntilDestroyed())
-      .subscribe((pipActive) => {
+      .subscribe(pipActive => {
         this.pipActive = pipActive;
       });
     this.store
       .select(selectPipAboveChat)
       .pipe(takeUntilDestroyed())
-      .subscribe((pipAboveChat) => {
+      .subscribe(pipAboveChat => {
         this.pipAboveChat = pipAboveChat;
       });
     this.store
       .select(selectShowChat)
       .pipe(takeUntilDestroyed())
-      .subscribe((showChat) => {
+      .subscribe(showChat => {
         this.showChat = showChat;
       });
   }

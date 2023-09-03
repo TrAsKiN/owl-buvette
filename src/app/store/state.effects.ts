@@ -8,7 +8,7 @@ export class StateEffects {
   saveState$ = createEffect(
     () =>
       this.actions$.pipe(
-        tap((_action) => {
+        tap(() => {
           this.storage.save();
         }),
       ),
