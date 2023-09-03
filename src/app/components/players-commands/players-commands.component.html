@@ -1,0 +1,64 @@
+<button
+  type="button"
+  class="btn btn-sm hide-on-mobile mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Placer à gauche ou à droite"
+  (click)="onChangeX()"
+  *ngIf="!pipAboveChat">
+  <i class="bi bi-arrow-left-right"></i>
+</button>
+<button
+  type="button"
+  class="btn btn-sm hide-on-mobile mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Placer en haut ou en bas"
+  (click)="onChangeY()"
+  *ngIf="!pipAboveChat">
+  <i class="bi bi-arrow-down-up"></i>
+</button>
+<button
+  type="button"
+  class="btn btn-sm hide-on-mobile mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  [title]="(pipActive ? 'Masquer' : 'Afficher') + ' le petit lecteur'"
+  (click)="onChangeActive()"
+  *ngIf="!pipAboveChat">
+  <i class="bi bi-eye" *ngIf="!pipActive"></i>
+  <i class="bi bi-eye-slash" *ngIf="pipActive"></i>
+</button>
+<button
+  type="button"
+  class="btn btn-sm hide-on-mobile mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Echanger les lecteurs"
+  (click)="onChangeSwap()">
+  <i class="bi bi-pip" *ngIf="pip === 'host'"></i>
+  <i class="bi bi-pip-fill" *ngIf="pip === 'cast'"></i>
+</button>
+<div
+  class="btn-group dropup mx-1"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="Changer de cast">
+  <button
+    type="button"
+    class="btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-expanded="false">
+    <i class="bi bi-youtube"></i>
+  </button>
+  <ul id="casts" class="dropdown-menu">
+    <li *ngFor="let cast of casts">
+      <a
+        class="dropdown-item"
+        [href]="host ? cast.hash + '&host=' + host : cast.hash"
+        [class.active]="selectedCast === cast">
+        {{ cast.name }}
+      </a>
+    </li>
+  </ul>
+</div>
