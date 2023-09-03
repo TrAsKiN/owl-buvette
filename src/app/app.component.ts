@@ -64,7 +64,11 @@ export class AppComponent {
         filter(fragment => fragment !== ""),
       )
       .subscribe(fragment => {
-        const castHash = fragment?.match(/^(?!host)(\w+)/)?.shift();
+        const castHash = fragment?.match(/^(?!(host|link))(\w+)/)?.shift();
+        const link = fragment
+          ?.match(/link=(\w+)/)
+          ?.slice(1)
+          .shift();
         const host = fragment
           ?.match(/host=(\w+)/)
           ?.slice(1)
@@ -72,6 +76,11 @@ export class AppComponent {
         if (host) {
           this.channel = host;
           this.host.url = `https://player.twitch.tv/?channel=${this.channel}`;
+        }
+
+        if (link) {
+          this.cast.url = `https://www.youtube.com/embed/${link}?autoplay=1`;
+          return;
         }
 
         const cast = CASTS.find(
