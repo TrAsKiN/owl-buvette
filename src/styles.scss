@@ -2,12 +2,14 @@
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
 :root {
+  overflow: hidden;
   --chat-width: 400px;
   --player-width: calc(100vw - var(--chat-width));
   --player-height: calc(var(--player-width) * 9 / 16);
   --pip-width: calc(var(--player-width) * 0.25);
   --pip-height-above-chat: calc(var(--chat-width) * 9 / 16);
   &.fullscreen {
+    overflow: auto;
     --player-width: 100vw;
   }
 }
