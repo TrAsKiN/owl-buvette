@@ -1,30 +1,30 @@
 <div id="app">
-  @if (position) {
+  @if (position()) {
     <div
       id="players"
-      [class.pip-left]="position.flipX"
-      [class.pip-right]="!position.flipX"
-      [class.pip-top]="position.flipY"
-      [class.pip-bottom]="!position.flipY">
+      [class.pip-left]="position().flipX"
+      [class.pip-right]="!position().flipX"
+      [class.pip-top]="position().flipY"
+      [class.pip-bottom]="!position().flipY">
       <app-player
-        [player]="host"
+        [player]="host()"
         [pipActive]="pipActive()"
         [pip]="pip()"
-        [position]="position"></app-player>
+        [position]="position()"></app-player>
       <app-player
-        [player]="cast"
+        [player]="cast()"
         [pipActive]="pipActive()"
         [pip]="pip()"
-        [position]="position"></app-player>
+        [position]="position()"></app-player>
     </div>
   }
   <app-chat
-    [channel]="channel"
+    [channel]="channel()"
     [isDark]="isDark()"
     [show]="showChat()"></app-chat>
   <app-players-commands
-    [selectedCast]="selectedCast"
-    [host]="channel !== DEFAULT_HOST ? channel : undefined"
+    [selectedCast]="selectedCast()"
+    [host]="channel() !== DEFAULT_HOST ? channel() : undefined"
     [(pip)]="pip"
     [(pipActive)]="pipActive"
     [(pipAboveChat)]="pipAboveChat"

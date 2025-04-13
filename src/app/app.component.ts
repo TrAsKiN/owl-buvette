@@ -16,20 +16,21 @@ import { ChatComponent } from "./components/chat/chat.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { PlayerComponent } from "./components/player/player.component";
 import { PlayersCommandsComponent } from "./components/players-commands/players-commands.component";
+import { StorageService } from "./services/storage.service";
 import { THEMES } from "./theme";
 
 @Component({
-    selector: "app-root",
-    templateUrl: "app.component.html",
-    imports: [
-        CommonModule,
-        PlayerComponent,
-        ChatComponent,
-        FooterComponent,
-        PlayersCommandsComponent,
-        ChatCommandsComponent,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-root",
+  templateUrl: "app.component.html",
+  imports: [
+    CommonModule,
+    PlayerComponent,
+    ChatComponent,
+    FooterComponent,
+    PlayersCommandsComponent,
+    ChatCommandsComponent,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   protected DEFAULT_HOST = "fefegg";
@@ -40,19 +41,28 @@ export class AppComponent {
       (window.matchMedia("(prefers-color-scheme: dark)") ? "dark" : "light"),
   );
 
-  protected channel = this.DEFAULT_HOST;
-  protected host: Player = { type: Pip.Host, url: undefined };
-  protected cast: Player = { type: Pip.Cast, url: undefined };
+  protected channel = signal(this.DEFAULT_HOST);
+  protected host = signal<Player>({ type: Pip.Host, url: undefined });
+  protected cast = signal<Player>({ type: Pip.Cast, url: undefined });
 
-  protected selectedCast?: Cast;
-  protected position = { flipX: false, flipY: false };
-  protected showChat = signal(true);
-  protected pip = signal(Pip.Host);
-  protected pipActive = signal(true);
-  protected pipAboveChat = signal(false);
+  protected selectedCast = signal<Cast | undefined>(undefined);
+  protected position = signal(
+    this.storage.state?.position || { flipX: false, flipY: false },
+  );
+  protected showChat = signal(this.storage.state?.showChat || true);
+  protected pip = signal(this.storage.state?.pip || Pip.Host);
+  protected pipActive = signal(this.storage.state?.pipActive || true);
+  protected pipAboveChat = signal(this.storage.state?.pipAboveChat || false);
 
-  constructor(renderer: Renderer2, route: ActivatedRoute) {
-    this.host.url = `https://player.twitch.tv/?channel=${this.channel}`;
+  constructor(
+    renderer: Renderer2,
+    route: ActivatedRoute,
+    private storage: StorageService,
+  ) {
+    this.host.update(host => ({
+      ...host,
+      url: `https://player.twitch.tv/?channel=${this.channel()}`,
+    }));
     route.fragment
       .pipe(
         takeUntilDestroyed(),
@@ -69,31 +79,43 @@ export class AppComponent {
           ?.slice(1)
           .shift();
         if (host) {
-          this.channel = host;
-          this.host.url = `https://player.twitch.tv/?channel=${this.channel}`;
+          this.channel.set(host);
+          this.host.update(host => ({
+            ...host,
+            url: `https://player.twitch.tv/?channel=${this.channel()}`,
+          }));
         }
 
         if (link) {
-          this.cast.url = `https://www.youtube.com/embed/${link}?autoplay=1`;
+          this.cast.update(cast => ({
+            ...cast,
+            url: `https://www.youtube.com/embed/${link}?autoplay=1`,
+          }));
           return;
         }
 
         const cast = CASTS.find(
           cast => cast.hash.slice(1) === castHash && !cast.disabled,
         );
-        if (cast && this.cast.url === cast.url) {
+        if (cast && this.cast().url === cast.url) {
           return;
         }
-        if (cast && this.cast.url !== cast.url) {
-          this.cast.url = cast.url;
-          this.selectedCast = cast;
+        if (cast && this.cast().url !== cast.url) {
+          this.cast.update(cast => ({
+            ...cast,
+            url: cast.url,
+          }));
+          this.selectedCast.set(cast);
           return;
         }
 
         const defaultCast = CASTS.find(cast => !cast.disabled);
-        if (!cast && defaultCast && this.cast.url !== defaultCast.url) {
-          this.cast.url = defaultCast.url;
-          this.selectedCast = defaultCast;
+        if (!cast && defaultCast && this.cast().url !== defaultCast.url) {
+          this.cast.update(cast => ({
+            ...cast,
+            url: defaultCast.url,
+          }));
+          this.selectedCast.set(defaultCast);
           return;
         }
         throw new Error("Unable to find a cast!");
@@ -121,6 +143,16 @@ export class AppComponent {
       } else {
         renderer.removeClass(window.document.documentElement, "fullscreen");
       }
+    });
+
+    effect(() => {
+      storage.save({
+        position: this.position(),
+        pip: this.pip(),
+        pipActive: this.pipActive(),
+        showChat: this.showChat(),
+        pipAboveChat: this.pipAboveChat(),
+      });
     });
   }
 
