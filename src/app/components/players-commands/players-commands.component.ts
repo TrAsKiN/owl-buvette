@@ -9,10 +9,10 @@ import { Cast, Pip, Position } from "../../app.model";
 import { CASTS } from "../../cast";
 
 @Component({
-    selector: "app-players-commands",
-    imports: [CommonModule],
-    templateUrl: "players-commands.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-players-commands",
+  imports: [CommonModule],
+  templateUrl: "players-commands.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayersCommandsComponent {
   public selectedCast = input<Cast>();
@@ -28,18 +28,18 @@ export class PlayersCommandsComponent {
     this.pip.update(pip => (pip === Pip.Cast ? Pip.Host : Pip.Cast));
   }
   onChangeActive() {
-    this.pipActive.update(pipActive => !pipActive ?? true);
+    this.pipActive.update(pipActive => !(pipActive ?? true));
   }
   onChangeX() {
     this.position.update(position => ({
-      flipX: !position?.flipX ?? true,
+      flipX: !(position?.flipX ?? true),
       flipY: position?.flipY ?? true,
     }));
   }
   onChangeY() {
     this.position.update(position => ({
       flipX: position?.flipX ?? true,
-      flipY: !position?.flipY ?? true,
+      flipY: !(position?.flipY ?? true),
     }));
   }
 }

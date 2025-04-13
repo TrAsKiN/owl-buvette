@@ -13,10 +13,10 @@ import semver from "semver";
 import Package from "../../../../package.json";
 
 @Component({
-    selector: "app-footer",
-    imports: [CommonModule],
-    templateUrl: "footer.component.html",
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-footer",
+  imports: [CommonModule],
+  templateUrl: "footer.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements AfterViewInit {
   protected upToDate = true;

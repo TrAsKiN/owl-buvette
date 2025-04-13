@@ -3,13 +3,13 @@ import { Component, Input } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 @Component({
-    selector: "app-chat",
-    imports: [CommonModule],
-    template: `
+  selector: "app-chat",
+  imports: [CommonModule],
+  template: `
     <div id="chat" [class.d-none]="!show">
       <iframe [src]="url"></iframe>
     </div>
-  `
+  `,
 })
 export class ChatComponent {
   @Input() show?: boolean | null;
