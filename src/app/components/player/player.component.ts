@@ -12,11 +12,10 @@ import { Pip, Player, Position } from "../../app.model";
 import { CachedSrcDirective } from "../../directives/cached-src.directive";
 
 @Component({
-  selector: "app-player",
-  standalone: true,
-  imports: [CommonModule, CachedSrcDirective],
-  templateUrl: "player.component.html",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-player",
+    imports: [CommonModule, CachedSrcDirective],
+    templateUrl: "player.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerComponent {
   public player = input.required<Player>();

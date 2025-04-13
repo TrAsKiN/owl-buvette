@@ -2,11 +2,10 @@ import { CommonModule } from "@angular/common";
 import { ChangeDetectionStrategy, Component, model } from "@angular/core";
 
 @Component({
-  selector: "app-chat-commands",
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: "chat-commands.component.html",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-chat-commands",
+    imports: [CommonModule],
+    templateUrl: "chat-commands.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatCommandsComponent {
   public pipActive = model<boolean>();

@@ -19,18 +19,17 @@ import { PlayersCommandsComponent } from "./components/players-commands/players-
 import { THEMES } from "./theme";
 
 @Component({
-  selector: "app-root",
-  standalone: true,
-  templateUrl: "app.component.html",
-  imports: [
-    CommonModule,
-    PlayerComponent,
-    ChatComponent,
-    FooterComponent,
-    PlayersCommandsComponent,
-    ChatCommandsComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-root",
+    templateUrl: "app.component.html",
+    imports: [
+        CommonModule,
+        PlayerComponent,
+        ChatComponent,
+        FooterComponent,
+        PlayersCommandsComponent,
+        ChatCommandsComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   protected DEFAULT_HOST = "fefegg";

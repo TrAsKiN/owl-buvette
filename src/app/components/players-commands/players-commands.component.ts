@@ -9,11 +9,10 @@ import { Cast, Pip, Position } from "../../app.model";
 import { CASTS } from "../../cast";
 
 @Component({
-  selector: "app-players-commands",
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: "players-commands.component.html",
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "app-players-commands",
+    imports: [CommonModule],
+    templateUrl: "players-commands.component.html",
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayersCommandsComponent {
   public selectedCast = input<Cast>();
