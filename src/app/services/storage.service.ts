@@ -5,21 +5,17 @@ import { State } from "../app.model";
   providedIn: "root",
 })
 export class StorageService {
-  private data?: State;
+  public state?: State;
 
   constructor() {
     const storedState = window.localStorage.getItem("state");
     if (storedState?.length) {
-      this.data = JSON.parse(storedState);
+      this.state = JSON.parse(storedState);
     }
   }
 
-  public restore() {
-    return this.data;
-  }
-
   public save(data: State) {
-    this.data = data;
-    window.localStorage.setItem("state", JSON.stringify(this.data));
+    this.state = data;
+    window.localStorage.setItem("state", JSON.stringify(this.state));
   }
 }
