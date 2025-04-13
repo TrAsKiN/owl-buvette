@@ -1,21 +1,15 @@
 import { CommonModule } from "@angular/common";
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
-  Input,
-  ViewChild,
+  computed,
+  effect,
+  input,
+  viewChild,
 } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Store } from "@ngrx/store";
-import { Player } from "../../app.model";
+import { Pip, Player, Position } from "../../app.model";
 import { CachedSrcDirective } from "../../directives/cached-src.directive";
-import {
-  selectPip,
-  selectPipActive,
-  selectPosition,
-} from "../../store/state.selectors";
 
 @Component({
   selector: "app-player",
@@ -25,52 +19,39 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerComponent {
-  @Input() public player?: Player;
-  @ViewChild("playerElement") public playerElement?: ElementRef<HTMLElement>;
+  public player = input.required<Player>();
+  public playerElement = viewChild<ElementRef<HTMLElement>>("playerElement");
+  public pipActive = input(true);
+  public pip = input(Pip.Host);
+  public position = input<Position>();
 
-  protected pipActive$ = this.store.select(selectPipActive);
-  protected isPip = false;
-  protected getSrc(url: string) {
-    if (url.startsWith("https://player.twitch.tv/")) {
+  protected isPip = computed(() => this.pip() === this.player().type);
+  protected getSrc(url?: string) {
+    if (url?.startsWith("https://player.twitch.tv/")) {
       url = `${url}&parent=${window.location.hostname}`;
     }
-    if (url.startsWith("https://www.youtube.com/")) {
+    if (url?.startsWith("https://www.youtube.com/")) {
       url = `${url}&autoplay=1`;
     }
     return url;
   }
 
-  private _cachedUrl?: string | null;
+  private cachedUrl?: string;
 
-  constructor(
-    private cd: ChangeDetectorRef,
-    private store: Store,
-  ) {
-    this.store
-      .select(selectPosition)
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => {
-        if (this.isPip) {
-          this.playerElement?.nativeElement.classList.add("animate");
-        }
-      });
-  }
-
-  ngOnInit() {
-    this.store.select(selectPip).subscribe(pip => {
-      this.isPip = pip === this.player?.type;
-      this.cd.markForCheck();
+  constructor() {
+    effect(() => {
+      if (this.position()) {
+        this.playerElement()?.nativeElement.classList.add("animate");
+      }
+    });
+    effect(() => {
+      if (this.cachedUrl !== this.player().url) {
+        this.cachedUrl = this.player().url;
+      }
     });
   }
 
-  ngDoCheck() {
-    if (this.player && this._cachedUrl !== this.player.url) {
-      this._cachedUrl = this.player.url;
-      this.cd.markForCheck();
-    }
-  }
-
   onTransitionEnd() {
-    this.playerElement?.nativeElement.classList.remove("animate");
+    this.playerElement()?.nativeElement.classList.remove("animate");
   }
 }

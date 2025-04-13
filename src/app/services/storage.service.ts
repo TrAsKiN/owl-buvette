@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Store } from "@ngrx/store";
 import { State } from "../app.model";
-import { setState } from "../store/state.actions";
-import { selectState } from "../store/state.selectors";
 
 @Injectable({
   providedIn: "root",
@@ -11,19 +7,19 @@ import { selectState } from "../store/state.selectors";
 export class StorageService {
   private data?: State;
 
-  constructor(store: Store) {
+  constructor() {
     const storedState = window.localStorage.getItem("state");
-    if (storedState && storedState !== "") {
-      store.dispatch(setState({ newState: JSON.parse(storedState) }));
+    if (storedState?.length) {
+      this.data = JSON.parse(storedState);
     }
-
-    store
-      .select(selectState)
-      .pipe(takeUntilDestroyed())
-      .subscribe(state => (this.data = state));
   }
 
-  public save() {
+  public restore() {
+    return this.data;
+  }
+
+  public save(data: State) {
+    this.data = data;
     window.localStorage.setItem("state", JSON.stringify(this.data));
   }
 }

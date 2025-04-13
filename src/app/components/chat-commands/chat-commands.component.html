@@ -1,34 +1,46 @@
+@if (pipAboveChat() && showChat()) {
+  <button
+    type="button"
+    class="btn btn-sm mx-1"
+    data-bs-toggle="tooltip"
+    data-bs-placement="bottom"
+    [title]="(pipActive() ? 'Masquer' : 'Afficher') + ' le petit lecteur'"
+    (click)="onChangePipActive()">
+    @if (pipActive()) {
+      <i class="bi bi-eye-slash"></i>
+    } @else {
+      <i class="bi bi-eye"></i>
+    }
+  </button>
+}
+@if (showChat()) {
+  <button
+    type="button"
+    class="btn btn-sm mx-1"
+    data-bs-toggle="tooltip"
+    data-bs-placement="bottom"
+    [title]="
+      pipAboveChat() ? 'Enlever du dessus du chat' : 'Placer au-dessus du chat'
+    "
+    (click)="onChangeAboveChat()">
+    @if (pipAboveChat()) {
+      <i class="bi bi-box-arrow-left"></i>
+    } @else {
+      <i class="bi bi-box-arrow-in-right"></i>
+    }
+  </button>
+}
+
 <button
   type="button"
   class="btn btn-sm mx-1"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  [title]="(pipActive ? 'Masquer' : 'Afficher') + ' le petit lecteur'"
-  (click)="onChangePipActive()"
-  *ngIf="pipAboveChat && showChat">
-  <i class="bi bi-eye-slash" *ngIf="pipActive"></i>
-  <i class="bi bi-eye" *ngIf="!pipActive"></i>
-</button>
-<button
-  type="button"
-  class="btn btn-sm mx-1"
-  data-bs-toggle="tooltip"
-  data-bs-placement="bottom"
-  [title]="
-    pipAboveChat ? 'Enlever du dessus du chat' : 'Placer au-dessus du chat'
-  "
-  (click)="onChangeAboveChat()"
-  *ngIf="showChat">
-  <i class="bi bi-box-arrow-left" *ngIf="pipAboveChat"></i>
-  <i class="bi bi-box-arrow-in-right" *ngIf="!pipAboveChat"></i>
-</button>
-<button
-  type="button"
-  class="btn btn-sm mx-1"
-  data-bs-toggle="tooltip"
-  data-bs-placement="bottom"
-  [title]="showChat ? 'Masquer le chat' : 'Afficher le chat'"
+  [title]="showChat() ? 'Masquer le chat' : 'Afficher le chat'"
   (click)="onChangeShowChat()">
-  <i class="bi bi-arrow-bar-right" *ngIf="showChat"></i>
-  <i class="bi bi-arrow-bar-left" *ngIf="!showChat"></i>
+  @if (showChat()) {
+    <i class="bi bi-arrow-bar-right"></i>
+  } @else {
+    <i class="bi bi-arrow-bar-left"></i>
+  }
 </button>

@@ -1,18 +1,18 @@
-<iframe
-  #playerElement
-  *ngIf="player && player.url"
-  [id]="player.type"
-  [cachedSrc]="getSrc(player.url)"
-  [class.pip]="isPip"
-  [class.invisible]="isPip && !(pipActive$ | async)"
-  (transitionend)="onTransitionEnd()"
-  allow="autoplay"></iframe>
-<div
-  *ngIf="player && !player.url"
-  class="d-flex justify-content-center align-items-center h-100 w-100">
-  <p class="text-center lead">
-    <strong>Impossible de trouver un cast !</strong>
-    <br />
-    Vérifiez l'URL et réessayez ou contactez moi sur Twitter ou Discord.
-  </p>
-</div>
+@if (player().url) {
+  <iframe
+    #playerElement
+    [id]="player().type"
+    [cachedSrc]="getSrc(player().url)"
+    [class.pip]="isPip()"
+    [class.invisible]="isPip() && !pipActive()"
+    (transitionend)="onTransitionEnd()"
+    allow="autoplay"></iframe>
+} @else {
+  <div class="d-flex justify-content-center align-items-center h-100 w-100">
+    <p class="text-center lead">
+      <strong>Impossible de trouver un cast !</strong>
+      <br />
+      Vérifiez l'URL et réessayez ou contactez moi sur Twitter ou Discord.
+    </p>
+  </div>
+}

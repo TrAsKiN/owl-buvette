@@ -1,23 +1,39 @@
 <div id="app">
-  <div
-    *ngIf="position$ | async as position"
-    id="players"
-    [class.pip-left]="position.flipX"
-    [class.pip-right]="!position.flipX"
-    [class.pip-top]="position.flipY"
-    [class.pip-bottom]="!position.flipY">
-    <app-player [player]="host"></app-player>
-    <app-player [player]="cast"></app-player>
-  </div>
+  @if (position) {
+    <div
+      id="players"
+      [class.pip-left]="position.flipX"
+      [class.pip-right]="!position.flipX"
+      [class.pip-top]="position.flipY"
+      [class.pip-bottom]="!position.flipY">
+      <app-player
+        [player]="host"
+        [pipActive]="pipActive()"
+        [pip]="pip()"
+        [position]="position"></app-player>
+      <app-player
+        [player]="cast"
+        [pipActive]="pipActive()"
+        [pip]="pip()"
+        [position]="position"></app-player>
+    </div>
+  }
   <app-chat
     [channel]="channel"
     [isDark]="isDark()"
-    [show]="showChat$ | async"></app-chat>
+    [show]="showChat()"></app-chat>
   <app-players-commands
     [selectedCast]="selectedCast"
     [host]="channel !== DEFAULT_HOST ? channel : undefined"
+    [(pip)]="pip"
+    [(pipActive)]="pipActive"
+    [(pipAboveChat)]="pipAboveChat"
+    [(position)]="position"
     class="commands text-center"></app-players-commands>
   <app-chat-commands
+    [(pipActive)]="pipActive"
+    [(pipAboveChat)]="pipAboveChat"
+    [(showChat)]="showChat"
     class="commands text-center hide-on-mobile"></app-chat-commands>
 </div>
 <app-footer></app-footer>

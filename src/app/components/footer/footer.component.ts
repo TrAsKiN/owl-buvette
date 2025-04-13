@@ -1,5 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  ViewChild,
+} from "@angular/core";
 import { Octokit } from "@octokit/rest";
 import { Popover } from "bootstrap";
 import { from } from "rxjs";
@@ -11,6 +17,7 @@ import Package from "../../../../package.json";
   standalone: true,
   imports: [CommonModule],
   templateUrl: "footer.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent implements AfterViewInit {
   protected upToDate = true;

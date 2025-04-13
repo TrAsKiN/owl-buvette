@@ -1,81 +1,39 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Store } from "@ngrx/store";
-import {
-  setPipAboveChat,
-  setPipActive,
-  setShowChat,
-} from "../../store/state.actions";
-import {
-  selectPipAboveChat,
-  selectPipActive,
-  selectShowChat,
-} from "../../store/state.selectors";
+import { ChangeDetectionStrategy, Component, model } from "@angular/core";
 
 @Component({
   selector: "app-chat-commands",
   standalone: true,
   imports: [CommonModule],
   templateUrl: "chat-commands.component.html",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatCommandsComponent {
-  protected pipActive?: boolean;
-  protected pipAboveChat?: boolean;
-  protected showChat?: boolean;
-
-  constructor(private store: Store) {
-    this.store
-      .select(selectPipActive)
-      .pipe(takeUntilDestroyed())
-      .subscribe(pipActive => {
-        this.pipActive = pipActive;
-      });
-    this.store
-      .select(selectPipAboveChat)
-      .pipe(takeUntilDestroyed())
-      .subscribe(pipAboveChat => {
-        this.pipAboveChat = pipAboveChat;
-      });
-    this.store
-      .select(selectShowChat)
-      .pipe(takeUntilDestroyed())
-      .subscribe(showChat => {
-        this.showChat = showChat;
-      });
-  }
+  public pipActive = model<boolean>();
+  public pipAboveChat = model<boolean>();
+  public showChat = model<boolean>();
 
   onChangePipActive() {
-    const pipActive = !this.pipActive;
-    this.store.dispatch(setPipActive({ pipActive }));
+    const pipActive = !this.pipActive();
+    this.pipActive.set(pipActive);
     if (!pipActive) {
-      this.store.dispatch(
-        setPipAboveChat({
-          pipAboveChat: false,
-        }),
-      );
+      this.pipAboveChat.set(false);
     }
   }
+
   onChangeAboveChat() {
-    const pipAboveChat = !this.pipAboveChat;
-    this.store.dispatch(
-      setPipAboveChat({
-        pipAboveChat,
-      }),
-    );
+    const pipAboveChat = !this.pipAboveChat();
+    this.pipAboveChat.set(pipAboveChat);
     if (pipAboveChat) {
-      this.store.dispatch(setPipActive({ pipActive: true }));
+      this.pipActive.set(true);
     }
   }
+
   onChangeShowChat() {
-    const showChat = !this.showChat;
-    this.store.dispatch(setShowChat({ showChat }));
+    const showChat = !this.showChat();
+    this.showChat.set(showChat);
     if (!showChat) {
-      this.store.dispatch(
-        setPipAboveChat({
-          pipAboveChat: false,
-        }),
-      );
+      this.pipAboveChat.set(false);
     }
   }
 }

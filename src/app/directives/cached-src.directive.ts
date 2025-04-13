@@ -9,8 +9,8 @@ export class CachedSrcDirective {
   public get cachedSrc(): string {
     return this.elRef.nativeElement.src;
   }
-  public set cachedSrc(src: string) {
-    if (this.elRef.nativeElement.src !== src) {
+  public set cachedSrc(src: string | undefined) {
+    if (src && this.elRef.nativeElement.src !== src) {
       this.renderer.setAttribute(this.elRef.nativeElement, "src", src);
     }
   }

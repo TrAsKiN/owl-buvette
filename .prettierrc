@@ -1,2 +1,12 @@
-bracketSameLine: true
-arrowParens: "avoid"
+{
+  "bracketSameLine": true,
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": "*.component.html",
+      "options": {
+        "parser": "angular"
+      }
+    }
+  ]
+}

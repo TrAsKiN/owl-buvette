@@ -1,4 +1,7 @@
-export type Pip = "host" | "cast";
+export enum Pip {
+  Host = "host",
+  Cast = "cast",
+}
 
 export interface Cast {
   hash: string;
@@ -16,7 +19,7 @@ export interface Position {
 }
 export interface Player {
   type: Pip;
-  url: string | null;
+  url?: string;
 }
 export interface State {
   position: Position;

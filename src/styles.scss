@@ -9,7 +9,7 @@
   --pip-width: calc(var(--player-width) * 0.25);
   --pip-height-above-chat: calc(var(--chat-width) * 9 / 16);
   &.fullscreen {
-    overflow: auto;
+    overflow-y: auto;
     --player-width: 100vw;
   }
 }
